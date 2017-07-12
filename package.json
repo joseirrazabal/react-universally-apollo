@@ -138,6 +138,7 @@
     "semver": "^5.4.1",
     "source-map-support": "0.4.15",
     "style-loader": "0.18.2",
+    "react-addons-test-utils": "15.6.0",
     "webpack": "3.5.3",
     "webpack-bundle-analyzer": "2.9.0",
     "webpack-dev-middleware": "1.12.0",
