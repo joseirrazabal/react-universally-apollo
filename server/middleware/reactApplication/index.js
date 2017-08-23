@@ -17,6 +17,10 @@ import config from "../../../config";
 import DemoApp from "../../../shared/components/DemoApp";
 import ServerHTML from "./ServerHTML";
 
+import { JobProvider, createJobContext } from 'react-jobs';
+import { Provider } from 'react-redux';
+
+
 /**
  * React application middleware, supports server side rendering.
  */
