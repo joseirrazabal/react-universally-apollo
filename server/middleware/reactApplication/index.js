@@ -20,6 +20,7 @@ import ServerHTML from "./ServerHTML";
 import { JobProvider, createJobContext } from 'react-jobs';
 import { Provider } from 'react-redux';
 
+import { log } from '../../../internal/utils';
 
 /**
  * React application middleware, supports server side rendering.
@@ -60,7 +61,11 @@ export default (async function reactApplicationMiddleware(request, response) {
   if (config("disableSSR")) {
     if (process.env.BUILD_FLAG_IS_DEV === "true") {
       // eslint-disable-next-line no-console
-      console.log("==> Handling react route without SSR");
+      log({
+        title: 'Server',
+        level: 'info',
+        message: `Handling react route without SSR: ${request.url}`,
+      });
     }
     // SSR is disabled so we will return an "empty" html page and
     // rely on the client to initialize and render the react application.
@@ -122,7 +127,14 @@ export default (async function reactApplicationMiddleware(request, response) {
     }
 
     response
-      .status(reactRouterContext.status || 200)
+      .status(
+        reactRouterContext.missed
+          ? // If the renderResult contains a "missed" match then we set a 404 code.
+          // Our App component will handle the rendering of an Error404 view.
+          404
+          : // Otherwise everything is all good and we send a 200 OK status.
+          200,
+      )
       .send(`<!DOCTYPE html>${html}`);
   });
 });
