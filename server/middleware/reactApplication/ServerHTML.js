@@ -55,9 +55,9 @@ function ServerHTML(props) {
     <script nonce={nonce} type="text/javascript" dangerouslySetInnerHTML={{ __html: body }} />;
 
   const headerElements = removeNil([
+    ...ifElse(helmet)(() => helmet.meta.toComponent(), []),
     ...ifElse(helmet)(() => helmet.title.toComponent(), []),
     ...ifElse(helmet)(() => helmet.base.toComponent(), []),
-    ...ifElse(helmet)(() => helmet.meta.toComponent(), []),
     ...ifElse(helmet)(() => helmet.link.toComponent(), []),
     ifElse(clientEntryAssets && clientEntryAssets.css)(() => stylesheetTag(clientEntryAssets.css)),
     ...ifElse(helmet)(() => helmet.style.toComponent(), []),
