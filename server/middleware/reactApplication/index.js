@@ -19,7 +19,6 @@ import ServerHTML from "./ServerHTML";
 
 import { JobProvider, createJobContext } from 'react-jobs';
 import { Provider } from 'react-redux';
-
 import { log } from '../../../internal/utils';
 
 /**
