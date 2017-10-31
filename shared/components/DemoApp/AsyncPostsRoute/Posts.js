@@ -1,4 +1,5 @@
 /* eslint-disable react/prefer-stateless-function */
+/*
 import React, { Component } from 'react';
 import { shape, bool, object } from 'prop-types';
 import { gql, graphql } from 'react-apollo';
@@ -58,3 +59,35 @@ export const POSTS_LIST_QUERY = gql`
   }
 `;
 export default graphql(POSTS_LIST_QUERY)(Posts);
+*/
+import { connect }            from 'react-redux';
+import { bindActionCreators } from 'redux';
+//import * as viewsActions      from '../../redux/modules/views';
+import About              from './Prueba';
+
+
+/* -----------------------------------------
+  Redux
+ ------------------------------------------*/
+/*
+const mapStateToProps = (state) => {
+  return {
+    currentView:  state.views.currentView
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(
+    {
+      enterAbout: viewsActions.enterAbout,
+      leaveAbout: viewsActions.leaveAbout
+    },
+    dispatch
+  );
+};
+*/
+
+export default connect(
+  )(About);
+
+//export default About
