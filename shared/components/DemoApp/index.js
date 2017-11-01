@@ -16,6 +16,8 @@ import AsyncHomeRoute from './AsyncHomeRoute';
 import AsyncPostsRoute from './AsyncPostsRoute';
 import AsyncAboutRoute from './AsyncAboutRoute';
 
+import App                      from './containers/app/App';
+
 function DemoApp() {
   return (
     <div style={{ padding: '2rem' }}>
@@ -115,12 +117,15 @@ function DemoApp() {
       </Helmet>
       <Header />
       <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
+        <App />
+        { false &&
         <Switch>
           <Route exact path="/" component={AsyncHomeRoute} />
           <Route path="/posts" component={AsyncPostsRoute} />
           <Route path="/about" component={AsyncAboutRoute} />
           <Route component={Error404} />
         </Switch>
+        }
       </div>
     </div>
   );

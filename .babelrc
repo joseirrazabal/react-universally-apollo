@@ -5,10 +5,18 @@
 // javascript syntax across the entire project.
 // It's nice not having to worry/think about what level of javascript syntax
 // is supported for each context.
+//{
+//  "presets": [
+//    ["env", { "targets": { "node": true } }],
+//    "stage-3",
+//    "react"
+//  ]
+//}
 {
   "presets": [
-    ["env", { "targets": { "node": true } }],
-    "stage-3",
-    "react"
-  ]
+    "react",
+    "es2015",
+    "stage-3"
+  ],
+  "plugins": ['transform-class-properties']
 }

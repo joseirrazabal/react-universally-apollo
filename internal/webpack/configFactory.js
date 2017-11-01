@@ -396,6 +396,8 @@ export default function webpackConfigFactory(buildOptions) {
                   // Adding this will give us the path to our components in the
                   // react dev tools.
                   ifDev('transform-react-jsx-source'),
+                  // arrow functions
+                  ifDev('transform-class-properties'),
                   // Replaces the React.createElement function with one that is
                   // more optimized for production.
                   // NOTE: Symbol needs to be polyfilled. Ensure this feature
