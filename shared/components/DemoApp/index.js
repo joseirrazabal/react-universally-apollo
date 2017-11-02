@@ -20,6 +20,10 @@ import App                      from './containers/app/App';
 
 function DemoApp() {
   return (
+    <App />
+  )
+  
+  return (
     <div style={{ padding: '2rem' }}>
       <Helmet>
         <html lang="en" />

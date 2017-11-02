@@ -17,13 +17,12 @@ import {
 
 import PrivateRoute from '../components/privateRoute/PrivateRoute';
 import LogoutRoute from '../components/logoutRoute/LogoutRoute';
+import AsyncPostsRoute from '../AsyncPostsRoute';
 
 //import Page404 from '../views/Pages/Page404/';
 //import Page500 from '../views/Pages/Page500/';
 
 export const MainRoutes = () => (
-  <div>
-    asdfasdf
   <Switch>
     {/* logout: just redirects to home (App will take care of removing the token) */}
     <LogoutRoute path="/logout" />
@@ -45,7 +44,6 @@ export const MainRoutes = () => (
     {/* <Route path="*" component={PageNotFound} /> */}
     { /*<Route path="*" component={Page404} /> */}
   </Switch>
-  </div>
 );
 
 export default MainRoutes;

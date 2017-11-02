@@ -17,6 +17,7 @@ import executableSchema from './data/executableSchema';
 import config from '../config';
 import { log } from '../internal/utils';
 
+import proxy from 'http-proxy-middleware';
 // Create our express based server.
 const app = express();
 
@@ -72,6 +73,11 @@ if (process.env.BUILD_FLAG_IS_DEV === 'false' && config('serviceWorker.enabled')
   );
 }
 
+/* const API_HOST = 'http://localhost:3010'
+const apiProxy = proxy({ target: API_HOST, changeOrigin: true });
+app.use('/graphql', apiProxy);
+ */
+
 // Configure serving of our client bundle.
 app.use(config('bundles.client.webPath'), clientBundle);
 
@@ -112,9 +118,6 @@ const listener = app.listen(config('port'), () =>
       Server is now listening on Port ${config('port')}
       You can access it in the browser at http://${config('host')}:${config('port')}
       Press Ctrl-C to stop.
-
-
-
     `,
   }),
 );
