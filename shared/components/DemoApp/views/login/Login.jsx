@@ -8,7 +8,7 @@ import cx             from 'classnames';
 import { Link }       from 'react-router-dom';
 import { ErrorAlert } from '../../components';
 
-import {Container, Row, Col, CardGroup, Card, CardBlock, Button, Input, InputGroup, InputGroupAddon} from "reactstrap";
+import {Container, Row, Col, CardGroup, Card, CardBody, Button, Input, InputGroup, InputGroupAddon} from "reactstrap";
 
 class Login extends PureComponent {
   static propTypes= {
@@ -76,7 +76,7 @@ class Login extends PureComponent {
               <Col md="8">
                 <CardGroup className="mb-0">
                   <Card className="p-4">
-                    <CardBlock className="card-body">
+                    <CardBody className="card-body">
                       <h1>Login</h1>
                       <p className="text-muted">Sign In to your account</p>
                       <InputGroup className="mb-3">
@@ -115,7 +115,7 @@ class Login extends PureComponent {
                           </Button>
                         </Col>
                       </Row>
-                    </CardBlock>
+                    </CardBody>
                   </Card>
                 </CardGroup>
               </Col>

@@ -18,11 +18,16 @@ import AsyncAboutRoute from './AsyncAboutRoute';
 
 import App                      from './containers/app/App';
 
+import 'animate.css';
+import 'jquery';
+import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+
 function DemoApp() {
   return (
     <App />
   )
-  
+
   return (
     <div style={{ padding: '2rem' }}>
       <Helmet>

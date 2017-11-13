@@ -28,7 +28,7 @@ export const MainRoutes = () => (
     <LogoutRoute path="/logout" />
 
     { /* prueba --eliminar */}
-    <Route path="/" component={ConnectedAbout} />
+    <Route path="/prueba" component={ConnectedAbout} />
 
     {/* non protected views */}
     <Route path="/login" component={ConnectedLogin} />
