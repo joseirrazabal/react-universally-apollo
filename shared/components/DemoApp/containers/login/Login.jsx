@@ -13,8 +13,76 @@ import { graphql }            from 'react-apollo';
 /* -----------------------------------------
   GraphQL - Apollo client
  ------------------------------------------*/
+// const loginUser = gql`
+//   mutation LoginUser($user: LoginUserInput!) {
+//     loginUser(input: $user) {
+//       token,
+//       user {
+//         id,
+//         username,
+//         createdAt,
+//         modifiedAt,
+//         lastLogin
+//       }
+//     }
+//   }
+// `;
 
-const logUser = gql`
+const loginUser = gql`
+mutation logUser($email: String!, $password: String!) {
+  logUser(email: $email, password: $password) {
+    token
+    user {
+      id,
+      username,
+      createdAt,
+      modifiedAt,
+      lastLogin
+    }
+  }
+}
+`;
+// 1- add queries:
+
+// 2- add mutation "logUser":
+const LoginWithMutation = graphql(
+  loginUser,
+  {
+    name: 'loginUserMutation',
+    props: ({ ownProps, loginUserMutation }) => ({
+      loginUser(user) {
+        ownProps.setMutationLoading();
+
+        return loginUserMutation(user)
+          .then(
+            (
+              {
+                data: {
+                  logUser
+                }
+              }
+            ) => {
+              ownProps.onUserLoggedIn(logUser.token, logUser.user);
+              ownProps.unsetMutationLoading();
+              return Promise.resolve();
+            }
+          )
+          .catch(
+            (error)=> {
+              ownProps.onUserLogError(error);
+              ownProps.unsetMutationLoading();
+              return Promise.reject();
+            }
+          );
+      }
+    })
+  }
+)(Login);
+
+
+
+/*
+const loginUser = gql`
   mutation LoginUser($user: LoginUserInput!) {
     loginUser(input: $user) {
       token,
@@ -33,7 +101,7 @@ const logUser = gql`
 
 // 2- add mutation "logUser":
 const LoginWithMutation = graphql(
-  logUser,
+  loginUser,
   {
     name: 'logUserMutation',
     props: ({ ownProps, logUserMutation }) => ({
@@ -65,7 +133,7 @@ const LoginWithMutation = graphql(
     })
   }
 )(Login);
-
+*/
 
 /* -----------------------------------------
   Redux

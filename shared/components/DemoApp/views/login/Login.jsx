@@ -157,10 +157,8 @@ class Login extends PureComponent {
     } = this.state;
 
     const variables = {
-      user: {
-        username: email,
+        email: email,
         password: password
-      }
     };
 
     try {
