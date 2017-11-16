@@ -7,7 +7,10 @@ import Helmet from 'react-helmet';
 
 import config from '../../../config';
 
-import './globals.css';
+// import './globals.css';
+import 'font-awesome/css/font-awesome.min.css';
+import 'simple-line-icons/css/simple-line-icons.css';
+import '../../../scss/style.scss';
 
 import Error404 from './Error404';
 import Header from './Header';
@@ -18,10 +21,10 @@ import AsyncAboutRoute from './AsyncAboutRoute';
 
 import App                      from './containers/app/App';
 
-import 'animate.css';
-import 'jquery';
-import 'font-awesome/css/font-awesome.min.css';
-import 'bootstrap/dist/css/bootstrap.css';
+// import 'animate.css';
+// import 'jquery';
+// import 'font-awesome/css/font-awesome.min.css';
+// import 'bootstrap/dist/css/bootstrap.css';
 
 function DemoApp() {
   return (
