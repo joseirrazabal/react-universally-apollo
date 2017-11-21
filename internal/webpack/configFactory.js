@@ -160,7 +160,7 @@ export default function webpackConfigFactory(buildOptions) {
 
     // Performance budget feature.
     // This enables checking of the output bundle size, which will result in
-    // warnings/errors if the bundle sizes are too large.
+    // warnings/errors if the bundle sizes are too large.transform-class-properties
     // We only want this enabled for our production client.  Please
     // see the webpack docs on how you can configure this to your own needs:
     // https://webpack.js.org/configuration/performance/
@@ -404,6 +404,8 @@ export default function webpackConfigFactory(buildOptions) {
                   // more optimized for production.
                   // NOTE: Symbol needs to be polyfilled. Ensure this feature
                   // is enabled in the polyfill.io configuration.
+                  // arrow functions
+                  ifProd('transform-class-properties'),
                   ifProd('transform-react-inline-elements'),
                   // Hoists element creation to the top level for subtrees that
                   // are fully static, which reduces call to React.createElement

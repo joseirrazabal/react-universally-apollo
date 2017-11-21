@@ -5,11 +5,11 @@ import PropTypes from 'prop-types';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import auth from '../../../../services/auth';
 
-//import navigationModel from '../../models/navigation.json';
+import navigationModel from '../../models/navigation.json';
 
 import Header from '../../components/Header/';
 import Sidebar from '../../components/Sidebar/';
-//import Breadcrumb from '../../components/Breadcrumb/';
+import Breadcrumb from '../../components/Breadcrumb/';
 import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
 
@@ -25,8 +25,7 @@ class PrivateRoute extends Component {
   };
 
   state = {
-    //navModel: navigationModel,
-    navModel: {},
+    navModel: navigationModel,
   };
 
   render() {
@@ -38,6 +37,7 @@ class PrivateRoute extends Component {
     const isUserAuthenticated = this.isAuthenticated();
     const isTokenExpired = this.isExpired();
 
+    console.log("private")
     return (
       <Route
         {...rest}
@@ -48,7 +48,7 @@ class PrivateRoute extends Component {
               <div className="app-body">
                 <Sidebar {...this.props} brand={navModel.brand} navModel={navModel} />
                 <main className="main">
-                  { /* <Breadcrumb /> */ }
+                  <Breadcrumb />
                   <div className="container-fluid">
                     <Component {...props} />
                   </div>

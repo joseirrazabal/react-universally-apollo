@@ -5,6 +5,14 @@
  * Copyright (c) 2017 creativeLabs Łukasz Holeczek
  * @license MIT
  */
+@import '~normalize.css/normalize';
+
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+
+$simple-line-font-path: "~simple-line-icons/fonts/";
+@import "~simple-line-icons/scss/simple-line-icons";
+
 // Override Boostrap variables
 @import "bootstrap-variables";
 
@@ -15,4 +23,4 @@
 @import "core/core";
 
 // Custom styles
-// @import "custom";
+@import "custom";

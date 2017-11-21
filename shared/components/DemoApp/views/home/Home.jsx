@@ -42,34 +42,34 @@ class Home extends PureComponent {
     } = this.state;
 
     return(
-      <div> 123123 </div>
-      // <div
-      //   key="homeView"
-      //   className={ cx({ 'view-enter': viewEntersAnim }) }>
-      //   <Jumbotron>
-      //     <h1>
-      //       Full ES2015 ReactJS + Redux + graphQL + Apollo + Bootstrap
-      //     </h1>
-      //     <h2>
-      //       with Hot Reload!!!
-      //     </h2>
-      //     <h2>
-      //       with React Router (SPA)
-      //     </h2>
-      //     <h1>
-      //       Starter
-      //     </h1>
-      //     <p>
-      //       <Link
-      //         className="btn btn-success btn-lg"
-      //         to={'/about'}>
-      //         <i className="fa fa-info"></i>
-      //         &nbsp;
-      //         go to about
-      //       </Link>
-      //     </p>
-      //   </Jumbotron>
-      // </div>
+      <div
+        key="homeView"
+        className={ cx({ 'view-enter': viewEntersAnim }) }>
+        <Jumbotron>
+          <h1>
+            Full ES2015 ReactJS + Redux + graphQL + Apollo + Bootstrap
+          </h1>
+          <h2>
+            with Hot Reload!!!
+          </h2>
+          <h2>
+            with React Router (SPA)
+          </h2>
+          <h1>
+            Starter
+          </h1>
+          <div className="prueba"> 123123 </div>
+          <p>
+            <Link
+              className="btn btn-success btn-lg"
+              to={'/about'}>
+              <i className="fa fa-info"></i>
+              &nbsp;
+              go to about
+            </Link>
+          </p>
+        </Jumbotron>
+      </div>
     );
   }
 }

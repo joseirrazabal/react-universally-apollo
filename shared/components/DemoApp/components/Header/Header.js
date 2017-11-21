@@ -11,6 +11,7 @@ import {
   NavbarBrand,
   DropdownToggle,
 } from 'reactstrap';
+import { Link }       from 'react-router-dom';
 
 class Header extends Component {
   constructor(props) {
@@ -54,26 +55,26 @@ class Header extends Component {
         <NavbarToggler className="d-lg-none" onClick={this.mobileSidebarToggle}>
           &#9776;
         </NavbarToggler>
-        <NavbarBrand href="#" />
+        <NavbarBrand tag={Link} to="#" />
         <NavbarToggler className="d-md-down-none" onClick={this.sidebarToggle}>
           &#9776;
         </NavbarToggler>
 
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
-            <NavLink href="#/">Dashboard</NavLink>
+            <NavLink tag={Link} to="/">Dashboard</NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink href="#">Users</NavLink>
+            <NavLink tag={Link} to="#">Users</NavLink>
           </NavItem>
           <NavItem className="px-3">
-            <NavLink href="/#/about">Settings</NavLink>
+            <NavLink tag={Link} to="/about">Settings</NavLink>
           </NavItem>
         </Nav>
 
         <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
-            <NavLink href="#">
+            <NavLink tag={Link} to="#">
               <i className="icon-bell" />
               <Badge pill color="danger">
                 5
@@ -82,13 +83,13 @@ class Header extends Component {
           </NavItem>
 
           <NavItem className="d-md-down-none">
-            <NavLink href="#">
+            <NavLink tag={Link} to="#">
               <i className="icon-list" />
             </NavLink>
           </NavItem>
 
           <NavItem className="d-md-down-none">
-            <NavLink href="#">
+            <NavLink tag={Link} to="#">
               <i className="icon-location-pin" />
             </NavLink>
           </NavItem>
