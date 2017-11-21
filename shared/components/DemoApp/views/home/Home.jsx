@@ -49,15 +49,6 @@ class Home extends PureComponent {
           <h1>
             Full ES2015 ReactJS + Redux + graphQL + Apollo + Bootstrap
           </h1>
-          <h2>
-            with Hot Reload!!!
-          </h2>
-          <h2>
-            with React Router (SPA)
-          </h2>
-          <h1>
-            Starter
-          </h1>
           <div className="prueba"> 123123 </div>
           <p>
             <Link

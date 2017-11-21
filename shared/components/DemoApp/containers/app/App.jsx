@@ -34,23 +34,24 @@ class App extends Component {
     navModel : {}
   };
 
-  componentDidMount() {
-    const {
-      actions: {
-        checkIfUserIsAuthenticated
-      }
-    } = this.props;
+  // componentDidMount() {
+    // const {
+    //   actions: {
+    //     checkIfUserIsAuthenticated
+    //   }
+    // } = this.props;
 
-    checkIfUserIsAuthenticated();
-  }navigationModel
+    // checkIfUserIsAuthenticated();
+  // }
 
   render() {
-    const { navModel } = this.state;
+    console.log("app")
+    // const { navModel } = this.state;
 
-    const {
-      children,
-      userIsAuthenticated
-    } = this.props;
+    // const {
+    //   children,
+    //   userIsAuthenticated
+    // } = this.props;
 
     return (
       <MainRoutes />
@@ -80,30 +81,31 @@ class App extends Component {
     */
   }
 
-  handleLeftNavItemClick = (event, viewName) => {
-    if (viewName === 'logout') {
-      const {
-        actions: {
-          setUserLogout
-        }
-      } = this.props;
-      setUserLogout();
-    }
-  }
+  // handleLeftNavItemClick = (event, viewName) => {
+  //   if (viewName === 'logout') {
+  //     const {
+  //       actions: {
+  //         setUserLogout
+  //       }
+  //     } = this.props;
+  //     setUserLogout();
+  //   }
+  // }
 
-  handleRightNavItemClick = (event, viewName) => {
-    if (viewName === 'logout') {
-      const {
-        actions: {
-          setUserLogout
-        }
-      } = this.props;
-      setUserLogout();
-    }
-  }
+  // handleRightNavItemClick = (event, viewName) => {
+  //   if (viewName === 'logout') {
+  //     const {
+  //       actions: {
+  //         setUserLogout
+  //       }
+  //     } = this.props;
+  //     setUserLogout();
+  //   }
+  // }
 }
 
-
+export default withRouter(App);
+/*
 const mapStateToProps = (state) => {
   return {
     // userAuth:
@@ -128,3 +130,4 @@ export default withRouter(
     mapDispatchToProps
   )(App)
 );
+*/
