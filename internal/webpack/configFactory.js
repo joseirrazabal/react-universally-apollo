@@ -378,6 +378,7 @@ export default function webpackConfigFactory(buildOptions) {
                   // "Candidate: complete spec and initial browser implementations."
                   // Add anything lower than stage 3 at your own risk. :)
                   'stage-3',
+                  'flow',
                   // For our client bundles we transpile all the latest ratified
                   // ES201X code into ES5, safe for browsers.  We exclude module
                   // transilation as webpack takes care of this for us, doing
