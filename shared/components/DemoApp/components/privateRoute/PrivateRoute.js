@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import auth from '../../../../services/auth';
-import { connect }            from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import navigationModel from '../../models/navigation.json';
@@ -14,7 +14,10 @@ import Sidebar from '../../components/Sidebar/';
 import Breadcrumb from '../../components/Breadcrumb/';
 import Aside from '../../components/Aside/';
 import Footer from '../../components/Footer/';
-import * as userAuthActions   from '../../../../reducers/modules/userAuth';
+// import * as userAuthActions   from '../../../../reducers/modules/userAuth';
+
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 
 class PrivateRoute extends Component {
   static propTypes = {
@@ -32,13 +35,13 @@ class PrivateRoute extends Component {
   };
 
   componentDidMount() {
-    const {
-      actions: {
-        checkIfUserIsAuthenticated
-      }
-    } = this.props;
+    // const {
+    //   actions: {
+    //     checkIfUserIsAuthenticated
+    //   }
+    // } = this.props;
 
-    checkIfUserIsAuthenticated();
+    // checkIfUserIsAuthenticated();
   }
 
   render() {
@@ -49,7 +52,9 @@ class PrivateRoute extends Component {
 
     // const isUserAuthenticated = this.isAuthenticated();
     const isUserAuthenticated = this.props.userIsAuthenticated;
-    const isTokenExpired = this.isExpired();
+    console.log(isUserAuthenticated)
+    const isTokenExpired = false;
+    // const isTokenExpired = this.isExpired();
 
     return (
       <Route
@@ -57,6 +62,8 @@ class PrivateRoute extends Component {
         render={props =>
           (!isTokenExpired && isUserAuthenticated ? (
             <div className="app">
+              aaa
+            { /*}
               <Header />
               <div className="app-body">
                 <Sidebar {...this.props} brand={navModel.brand} navModel={navModel} />
@@ -69,43 +76,63 @@ class PrivateRoute extends Component {
                 <Aside />
               </div>
               <Footer />
+          */ }
             </div>
           ) : (
+              <div>
+                2222
+            { /*
             <Redirect to={{ pathname: '/login', state: { from: location } }} />
-          ))}
+            */ }
+              </div>
+            ))}
       />
     );
   }
 
   isAuthenticated() {
-    const checkUserHasId = user => user && user.id && user.id.length > 0;
-    const user = auth.getUserInfo() ? auth.getUserInfo() : null;
+    // const checkUserHasId = user => user && user.id && user.id.length > 0;
+    // const user = auth.getUserInfo() ? auth.getUserInfo() : null;
     return true
-    const isAuthenticated = !!(auth.getToken() && checkUserHasId(user));
+    // const isAuthenticated = !!(auth.getToken() && checkUserHasId(user));
 
-    return isAuthenticated;
+    // return isAuthenticated;
   }
 
   isExpired() {
     return false
-    return auth.isExpiredToken(auth.getToken());
+    // return auth.isExpiredToken(auth.getToken());
   }
 }
 
 // export default withRouter(PrivateRoute);
 
+const loggedUser = gql`
+query loggedInUser {
+  loggedInUser {
+      id,
+      username
+  }
+}
+`;
+
+const PrivateRouteQuery = graphql(loggedUser, {
+  options: (props) => ({
+  }),
+})(PrivateRoute)
+
 const mapStateToProps = (state) => {
   return {
     // userAuth:
-    userIsAuthenticated: state.userAuth.isAuthenticated
+    userIsAuthenticated: state && state.userAuth && state.userAuth.isAuthenticated || false
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions : bindActionCreators(
+    actions: bindActionCreators(
       {
-        ...userAuthActions
+        // ...userAuthActions
       },
       dispatch)
   };
@@ -115,5 +142,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(PrivateRoute)
+  )(PrivateRouteQuery)
 );

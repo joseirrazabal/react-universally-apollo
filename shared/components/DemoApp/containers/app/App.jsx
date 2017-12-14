@@ -9,10 +9,10 @@ import {
   BackToTop
 }                             from '../../components';
 //import navigationModel        from '../../models/navigation.json';
-import { bindActionCreators } from 'redux';
-import { connect }            from 'react-redux';
-import * as viewsActions      from '../../../../reducers/modules/views';
-import * as userAuthActions   from '../../../../reducers/modules/userAuth';
+// import { bindActionCreators } from 'redux';
+// import { connect }            from 'react-redux';
+// import * as viewsActions      from '../../../../reducers/modules/views';
+// import * as userAuthActions   from '../../../../reducers/modules/userAuth';
 import MainRoutes             from '../../routes/MainRoutes';
 import {
   withRouter
@@ -26,7 +26,7 @@ class App extends Component {
     history:  PropTypes.object.isRequired,
 
     // userAuth
-    userIsAuthenticated: PropTypes.bool.isRequired
+    // userIsAuthenticated: PropTypes.bool.isRequired
   }
 
   state = {
@@ -35,17 +35,17 @@ class App extends Component {
   };
 
   // componentDidMount() {
-    // const {
-    //   actions: {
-    //     checkIfUserIsAuthenticated
-    //   }
-    // } = this.props;
+  //   const {
+  //     actions: {
+  //       checkIfUserIsAuthenticated
+  //     }
+  //   } = this.props;
 
-    // checkIfUserIsAuthenticated();
+  //   checkIfUserIsAuthenticated();
   // }
 
   render() {
-    console.log("app")
+    // console.log(this.props)
     // const { navModel } = this.state;
 
     // const {
@@ -105,6 +105,7 @@ class App extends Component {
 }
 
 export default withRouter(App);
+
 /*
 const mapStateToProps = (state) => {
   return {
