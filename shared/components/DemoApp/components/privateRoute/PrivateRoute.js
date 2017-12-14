@@ -35,6 +35,7 @@ class PrivateRoute extends Component {
   };
 
   componentDidMount() {
+    // this.props.data.refetch({})
     // const {
     //   actions: {
     //     checkIfUserIsAuthenticated
@@ -52,17 +53,20 @@ class PrivateRoute extends Component {
 
     // const isUserAuthenticated = this.isAuthenticated();
     const isUserAuthenticated = this.props.userIsAuthenticated;
-    console.log(isUserAuthenticated)
     const isTokenExpired = false;
     // const isTokenExpired = this.isExpired();
 
+    if (this.props.user.loading)
+      return <div>loading...</div>
+
     return (
       <Route
-        {...rest}
-        render={props =>
-          (!isTokenExpired && isUserAuthenticated ? (
-            <div className="app">
-              aaa
+        { ...rest }
+        render={
+          props =>
+            (this.props.user.loggedInUser && this.props.user.loggedInUser.id ? (
+              <div className="app">
+                aaa
             { /*}
               <Header />
               <div className="app-body">
@@ -77,15 +81,25 @@ class PrivateRoute extends Component {
               </div>
               <Footer />
           */ }
-            </div>
-          ) : (
-              <div>
-                2222
-            { /*
+              </div>
+            ) : (
+                <div>
+                  2222
+                <button type="button" onClick={() => {
+                    this.props.loggedInUser.refetch({
+                      // search: {
+                      //   nameOrigin: document.forms["flyForm"]["from"].value,
+                      //   nameDestiny: document.forms["flyForm"]["to"].value
+                      // }
+                    })
+                  }}>Buscar...
+                </button>
+                  { /*
             <Redirect to={{ pathname: '/login', state: { from: location } }} />
             */ }
-              </div>
-            ))}
+                </div>
+              ))
+        }
       />
     );
   }
@@ -117,8 +131,8 @@ query loggedInUser {
 `;
 
 const PrivateRouteQuery = graphql(loggedUser, {
-  options: (props) => ({
-  }),
+  name: 'user',
+  options: { fetchPolicy: 'network-only', ssr: false },
 })(PrivateRoute)
 
 const mapStateToProps = (state) => {
