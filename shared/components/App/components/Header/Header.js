@@ -62,7 +62,7 @@ class Header extends Component {
 
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
-            <NavLink tag={Link} to="/">Dashboard</NavLink>
+            <NavLink tag={Link} to="/dashboard">Dashboard</NavLink>
           </NavItem>
           <NavItem className="px-3">
             <NavLink tag={Link} to="#">Users</NavLink>
@@ -146,9 +146,11 @@ class Header extends Component {
             </Dropdown>
           </NavItem>
         </Nav>
+        { false &&
         <NavbarToggler className="d-md-down-none" type="button" onClick={this.asideToggle}>
           &#9776;
         </NavbarToggler>
+        }
       </header>
     );
   }

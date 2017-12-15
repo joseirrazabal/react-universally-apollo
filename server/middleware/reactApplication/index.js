@@ -14,7 +14,7 @@ import {
   getNetworkInterface
 } from "../../../shared/apollo";
 import config from "../../../config";
-import DemoApp from "../../../shared/components/DemoApp";
+import App from "../../../shared/components/App";
 import ServerHTML from "./ServerHTML";
 
 import { JobProvider, createJobContext } from 'react-jobs';
@@ -89,7 +89,7 @@ export default (async function reactApplicationMiddleware(request, response) {
     <AsyncComponentProvider asyncContext={asyncContext}>
       <StaticRouter location={request.url} context={reactRouterContext}>
         <ApolloProvider store={store} client={apolloClient}>
-          <DemoApp />
+          <App />
         </ApolloProvider>
       </StaticRouter>
     </AsyncComponentProvider>
