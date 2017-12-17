@@ -59,7 +59,7 @@ const values = {
   // as the polyfill needs to be loaded BEFORE any of our other javascript
   // gets parsed.
   polyfillIO: {
-    enabled: true,
+    enabled: false, // true
     url: '//cdn.polyfill.io/v2/polyfill.min.js',
     // Reference https://qa.polyfill.io/v2/docs/features for a full list
     // of features.

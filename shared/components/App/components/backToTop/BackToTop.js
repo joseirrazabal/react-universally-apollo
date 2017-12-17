@@ -24,11 +24,15 @@ class BackToTop extends Component {
   };
 
   componentWillMount() {
-    window.addEventListener('scroll', this.handleWindowScroll);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', this.handleWindowScroll);
+    }
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleWindowScroll);
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('scroll', this.handleWindowScroll);
+    }
   }
 
   render() {

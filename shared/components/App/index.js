@@ -1,6 +1,3 @@
-// import 'normalize.css/normalize.css';
-// import 'font-awesome/css/font-awesome.min.css';
-// import 'simple-line-icons/css/simple-line-icons.css';
 import '../../../scss/style.scss';
 
 import React from 'react';
@@ -10,22 +7,12 @@ import Helmet from 'react-helmet';
 
 import config from '../../../config';
 
-import Error404 from './Error404';
-import Header from './Header';
+import MainRoutes from './routes/MainRoutes';
+import { BackToTop } from './components';
 
-import AsyncHomeRoute from './AsyncHomeRoute';
-import AsyncPostsRoute from './AsyncPostsRoute';
-import AsyncAboutRoute from './AsyncAboutRoute';
-
-import App from './containers/app/App';
-
-function DemoApp() {
+function App() {
   return (
-    <App />
-  )
-
-  return (
-    <div style={{ padding: '2rem' }}>
+    <div id="appContainer">
       <Helmet>
         <html lang="en" />
         <meta charSet="utf-8" />
@@ -39,14 +26,6 @@ function DemoApp() {
         <title>
           {config('htmlPage.defaultTitle')}
         </title>
-        {/*
-          A great reference for favicons:
-          https://github.com/audreyr/favicon-cheat-sheet
-          It's a pain to manage/generate them. I run both these in order,
-          and combine their results:
-          http://realfavicongenerator.net/
-          http://www.favicomatic.com/
-        */}
         <link
           rel="apple-touch-icon-precomposed"
           sizes="152x152"
@@ -106,11 +85,7 @@ function DemoApp() {
         <meta name="msapplication-square310x310logo" content="/favicons/mstile-310x310.png" />
         <link rel="manifest" href="/manifest.json" />
 
-        {/*
-          NOTE: This is simply for quick and easy styling on the demo. Remove
-          this and the related items from the Content Security Policy in the
-          global config if you have no intention of using milligram.
-        */}
+        { /*
         <link
           rel="stylesheet"
           href="//fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
@@ -119,21 +94,19 @@ function DemoApp() {
           rel="stylesheet"
           href="//cdn.rawgit.com/milligram/milligram/master/dist/milligram.min.css"
         />
+        */}
       </Helmet>
-      <Header />
-      <div style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
-        <App />
-        { false &&
-        <Switch>
-          <Route exact path="/" component={AsyncHomeRoute} />
-          <Route path="/posts" component={AsyncPostsRoute} />
-          <Route path="/about" component={AsyncAboutRoute} />
-          <Route component={Error404} />
-        </Switch>
-        }
-      </div>
+
+      <MainRoutes />
+
+      { /*
+      <BackToTop
+        minScrollY={40}
+        scrollTo={'appContainer'}
+      />
+      */ }
     </div>
   );
 }
 
-export default DemoApp;
+export default App;

@@ -15,7 +15,25 @@ function createSimpleNetworkInterface(opts = {}, headers = {}) {
     opts
   );
 
-  return createNetworkInterface(richerOpts);
+  const networkInterface = createNetworkInterface({ uri: config("graphqlUri") });
+
+  networkInterface.use([{
+    applyMiddleware(req, next) {
+      /* eslint-disable no-param-reassign */
+      if (!req.options.headers) {
+        req.options.headers = {};  // Create the header object if needed.
+      }
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('token')) {
+        req.options.headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
+      }
+
+      next();
+      /* eslint-enable no-param-reassign */
+    },
+  }]);
+
+  return networkInterface
+  // return createNetworkInterface(richerOpts);
 }
 
 function getNetworkInterface(opts = {}, headers = {}) {

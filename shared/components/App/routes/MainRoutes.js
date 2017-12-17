@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import {
   // app:
-  App,
+  // App,
   // non protected views
   ConnectedLogin,
   // ConnectedRegister,
@@ -33,11 +33,11 @@ export const MainRoutes = () => (
 
     {/* protected views */}
     { /* <PrivateRoute exact path="/" component={ConnectedHome} /> */ }
-    <PrivateRoute path="/" component={ConnectedHome} />
+    { /* <PrivateRoute path="/" component={ConnectedHome} /> */ }
     <PrivateRoute path="/dashboard" component={ConnectedHome} />
-    <PrivateRoute path="/about" component={ConnectedAbout} />
+    <PrivateRoute path="/about" component={ConnectedProtected} />
     <PrivateRoute path="/protected" component={ConnectedProtected} />
-    { /* <Redirect from="/" to="/dashboard" /> */ }
+    <Redirect from="/" to="/dashboard" />
 
     {/* page not found */}
     <Route path="*" component={PageNotFound} />
