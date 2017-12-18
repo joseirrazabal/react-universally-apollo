@@ -159,7 +159,9 @@ class Header extends Component {
                     <i className="fa fa-file" /> Projects<Badge color="primary">42</Badge>
                   </DropdownItem>
                 }
-                <DropdownItem divider />
+                {false &&
+                  <DropdownItem divider />
+                }
                 {false &&
                   <DropdownItem>
                     <i className="fa fa-shield" /> Lock Account
