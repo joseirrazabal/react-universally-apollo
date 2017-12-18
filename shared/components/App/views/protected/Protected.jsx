@@ -1,51 +1,150 @@
 // @flow weak
 
-import React, {
-  PureComponent
-}                     from 'react';
-import PropTypes      from 'prop-types';
-import cx             from 'classnames';
+// import React, {
+//   PureComponent
+// } from 'react';
+// import PropTypes from 'prop-types';
+// import cx from 'classnames';
+// import { Field, reduxForm } from 'redux-form/immutable';
+// import renderInput from '../../components/Input/Input.jsx'
 
-class Protected extends PureComponent {
-  static propTypes= {
-    // react-router 4:
-    match:    PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
-    history:  PropTypes.object.isRequired,
+// const renderField = ({
+//   input,
+//   label,
+//   type,
+//   meta: { touched, error, warning }
+// }) => (
+//   <div>
+//     <label>{label}</label>
+//     <div>
+//       <input {...input} type={type} placeholder={label} />
+//       {touched &&
+//         ((error && <span>{error}</span>) ||
+//           (warning && <span>{warning}</span>))}
+//     </div>
+//   </div>
+// )
 
-    // views
-    currentView:    PropTypes.string.isRequired,
-    enterProtected: PropTypes.func.isRequired,
-    leaveProtected: PropTypes.func.isRequired
-  };
+// class Protected extends PureComponent {
+//   static propTypes = {
+//     // react-router 4:
+//     match: PropTypes.object.isRequired,
+//     location: PropTypes.object.isRequired,
+//     history: PropTypes.object.isRequired,
 
-  state = {
-    viewEntersAnim: true
-  };
+//     // views
+//     currentView: PropTypes.string.isRequired,
+//     enterProtected: PropTypes.func.isRequired,
+//     leaveProtected: PropTypes.func.isRequired
+//   };
 
-  componentDidMount() {
-    const { enterProtected } = this.props;
-    enterProtected();
-  }
+//   state = {
+//     viewEntersAnim: true
+//   };
 
-  componentWillUnmount() {
-    const { leaveProtected } = this.props;
-    leaveProtected();
-  }
+//   componentDidMount() {
+//     const { enterProtected } = this.props;
+//     enterProtected();
+//   }
 
-  render() {
-    const { viewEntersAnim } = this.state;
-    return(
-      <div className={cx({ "view-enter": viewEntersAnim })}>
-        <h1 className="text-danger">
-          Here is a protected view!
-        </h1>
-        <h2 className="text-danger">
-          You've just logged in to be able to enter this view.
-        </h2>
-      </div>
-    );
-  }
+//   componentWillUnmount() {
+//     const { leaveProtected } = this.props;
+//     leaveProtected();
+//   }
+
+//   submit = () => {
+//     console.log("bien")
+//   }
+
+//   render() {
+//     const { handleSubmit, pristine, reset, submitting } = this.props;
+//     const { viewEntersAnim } = this.state;
+
+//     return (
+//       <div className={cx({ "view-enter": viewEntersAnim })}>
+//         <form onSubmit={handleSubmit(this.submit)}>
+//           <div>
+//               <Field
+//               name="username"
+//               type="text"
+//               component={renderField}
+//               label="Username"
+//             />
+//           </div>
+//           <button type="submit" >
+//             Submit
+//           </button>
+//           <button type="button" disabled={pristine || submitting} onClick={reset}>
+//             Clear Values
+//           </button>
+//         </form>
+//       </div>
+//     );
+//   }
+// }
+
+// export default reduxForm({
+//   form: 'example'
+// })(Protected);
+
+import React from 'react';
+// import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form/immutable';
+
+const renderField = ({
+  input,
+  label,
+  type,
+  meta: { touched, error, warning }
+}) => (
+  <div>
+    <label>{label}</label>
+    <div>
+      <input {...input} type={type} placeholder={label} />
+      {touched &&
+        ((error && <span>{error}</span>) ||
+          (warning && <span>{warning}</span>))}
+    </div>
+  </div>
+)
+const renderErrors = (errors) => (
+  <div className="alert alert-danger" role="alert">
+    {errors.map((error, index) => <span key={index}>{error.value}</span>)}
+  </div>
+);
+
+const SignInForm = (props) => {
+  const { handleSubmit } = props;
+  const errors = props.errors <= 0 ? null : renderErrors(props.errors);
+  return (
+    <form onSubmit={handleSubmit}>
+      {errors}
+      <Field name="age" type="number" component={renderField} label="Age" />
+      <button type="submit" className="btn btn-primary">Sign in</button>
+    </form>
+  );
 }
 
-export default Protected;
+const validate = (values) => {
+  const errors = {}
+
+  if (!values.email) {
+    errors.email = 'Required'
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+
+  if (!values.password) {
+    errors.password = 'Required';
+  } else if (values.password.length <= 3) {
+    errors.password = 'Must be at least 4 characters';
+  }
+
+  return errors;
+}
+
+// Decorate the form component
+export default reduxForm({
+  form: 'SignInForm', // a unique name for this form
+  validate
+})(SignInForm);
