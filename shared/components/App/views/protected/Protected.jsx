@@ -1,135 +1,116 @@
 // @flow weak
 
-// import React, {
-//   PureComponent
-// } from 'react';
-// import PropTypes from 'prop-types';
-// import cx from 'classnames';
-// import { Field, reduxForm } from 'redux-form/immutable';
-// import renderInput from '../../components/Input/Input.jsx'
-
-// const renderField = ({
-//   input,
-//   label,
-//   type,
-//   meta: { touched, error, warning }
-// }) => (
-//   <div>
-//     <label>{label}</label>
-//     <div>
-//       <input {...input} type={type} placeholder={label} />
-//       {touched &&
-//         ((error && <span>{error}</span>) ||
-//           (warning && <span>{warning}</span>))}
-//     </div>
-//   </div>
-// )
-
-// class Protected extends PureComponent {
-//   static propTypes = {
-//     // react-router 4:
-//     match: PropTypes.object.isRequired,
-//     location: PropTypes.object.isRequired,
-//     history: PropTypes.object.isRequired,
-
-//     // views
-//     currentView: PropTypes.string.isRequired,
-//     enterProtected: PropTypes.func.isRequired,
-//     leaveProtected: PropTypes.func.isRequired
-//   };
-
-//   state = {
-//     viewEntersAnim: true
-//   };
-
-//   componentDidMount() {
-//     const { enterProtected } = this.props;
-//     enterProtected();
-//   }
-
-//   componentWillUnmount() {
-//     const { leaveProtected } = this.props;
-//     leaveProtected();
-//   }
-
-//   submit = () => {
-//     console.log("bien")
-//   }
-
-//   render() {
-//     const { handleSubmit, pristine, reset, submitting } = this.props;
-//     const { viewEntersAnim } = this.state;
-
-//     return (
-//       <div className={cx({ "view-enter": viewEntersAnim })}>
-//         <form onSubmit={handleSubmit(this.submit)}>
-//           <div>
-//               <Field
-//               name="username"
-//               type="text"
-//               component={renderField}
-//               label="Username"
-//             />
-//           </div>
-//           <button type="submit" >
-//             Submit
-//           </button>
-//           <button type="button" disabled={pristine || submitting} onClick={reset}>
-//             Clear Values
-//           </button>
-//         </form>
-//       </div>
-//     );
-//   }
-// }
-
-// export default reduxForm({
-//   form: 'example'
-// })(Protected);
-
-import React from 'react';
-// import { Field, reduxForm } from 'redux-form';
+import React, {
+  PureComponent,
+} from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
 import { Field, reduxForm } from 'redux-form/immutable';
 
-const renderField = ({
-  input,
-  label,
-  type,
-  meta: { touched, error, warning }
-}) => (
-  <div>
-    <label>{label}</label>
-    <div>
-      <input {...input} type={type} placeholder={label} />
-      {touched &&
-        ((error && <span>{error}</span>) ||
-          (warning && <span>{warning}</span>))}
-    </div>
-  </div>
-)
-const renderErrors = (errors) => (
-  <div className="alert alert-danger" role="alert">
-    {errors.map((error, index) => <span key={index}>{error.value}</span>)}
-  </div>
-);
+import { renderField, renderErrors } from '../../components/Input';
+import { ErrorAlert } from '../../components';
 
-const SignInForm = (props) => {
-  const { handleSubmit } = props;
-  const errors = props.errors <= 0 ? null : renderErrors(props.errors);
-  return (
-    <form onSubmit={handleSubmit}>
-      {errors}
-      <Field name="age" type="number" component={renderField} label="Age" />
-      <button type="submit" className="btn btn-primary">Sign in</button>
-    </form>
-  );
+class Protected extends PureComponent {
+  static propTypes = {
+    // react-router 4:
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+
+    // views
+    currentView: PropTypes.string.isRequired,
+    enterProtected: PropTypes.func.isRequired,
+    leaveProtected: PropTypes.func.isRequired
+  };
+
+  state = {
+    viewEntersAnim: true
+  };
+
+  constructor(props) {
+    super(props);
+    this.state = { errors: [] };
+  }
+
+  componentDidMount() {
+    const { enterProtected } = this.props;
+    enterProtected();
+  }
+
+  componentWillUnmount() {
+    const { leaveProtected } = this.props;
+    leaveProtected();
+  }
+
+  handleSubmit = (values) => {
+    console.log(values);
+    this.props.mutate({ variables: values })
+      .then((response) => {
+        if (response.errors && response.errors.length <= 0) {
+          // this.props.signInDispatcher(response.data.setMenuItem.id);
+          // this.props.router.replace('/');
+          console.log("guardado");
+        } else {
+          this.setState({
+            errors: response.data.setMenuItem.errors
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  render() {
+    const { handleSubmit, pristine, reset, submitting, mutationLoading, error } = this.props;
+    const { viewEntersAnim } = this.state;
+
+    const errors = this.state.errors <= 0 ? null : renderErrors(this.state.errors);
+
+    return (
+      <div className={cx({ "view-enter": viewEntersAnim })}>
+        <form onSubmit={handleSubmit(this.handleSubmit)}>
+          <ErrorAlert
+            showAlert={!!error}
+            errorTitle={'Error'}
+            errorMessage={error ? error.message : ''}
+            onClose={this.closeError}
+          />
+          <div>
+            <Field
+              name="title"
+              type="text"
+              component={renderField}
+              label="Titulo"
+            />
+            <Field
+              name="route"
+              type="text"
+              component={renderField}
+              label="Ruta"
+            />
+            <Field
+              name="order"
+              type="text"
+              component={renderField}
+              label="Orden"
+            />
+          </div>
+          <button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
+          <button type="button" className="btn btn-default" disabled={pristine || submitting} onClick={reset}>
+            Clear Values
+          </button>
+        </form>
+      </div>
+    );
+  }
 }
 
 const validate = (values) => {
-  const errors = {}
+  const errors = {};
 
   if (!values.email) {
-    errors.email = 'Required'
+    errors.email = 'Required';
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address';
   }
@@ -141,10 +122,9 @@ const validate = (values) => {
   }
 
   return errors;
-}
+};
 
-// Decorate the form component
 export default reduxForm({
-  form: 'SignInForm', // a unique name for this form
-  validate
-})(SignInForm);
+  form: 'example',
+  validate,
+})(Protected);
