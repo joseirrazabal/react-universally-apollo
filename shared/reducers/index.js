@@ -1,4 +1,6 @@
 import { combineReducers } from 'redux';
+import { reducer as formReducer } from 'redux-form';
+
 import posts from './posts/byId';
 import views                    from './modules/views';
 import userAuth                 from './modules/userAuth';
@@ -12,6 +14,7 @@ const appReducers = {
 export default function getReducers(apolloClient) {
   return combineReducers({
     ...appReducers,
-    apollo: apolloClient.reducer()
+    apollo: apolloClient.reducer(),
+    form: formReducer,
   });
 }
