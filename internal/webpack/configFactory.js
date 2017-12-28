@@ -146,11 +146,11 @@ export default function webpackConfigFactory(buildOptions) {
       // nice stack traces for errors (the source maps get consumed by
       // the `node-source-map-support` module to allow for this).
       isNode ||
-        // Always include source maps for any development build.
-        isDev ||
-        // Allow for the following flag to force source maps even for production
-        // builds.
-        config('includeSourceMapsForOptimisedClientBundle'),
+      // Always include source maps for any development build.
+      isDev ||
+      // Allow for the following flag to force source maps even for production
+      // builds.
+      config('includeSourceMapsForOptimisedClientBundle'),
     )(
       // Produces an external source map (lives next to bundle output files).
       'source-map',
@@ -438,16 +438,16 @@ export default function webpackConfigFactory(buildOptions) {
                 modules: false,
                 importLoaders: 1,
                 localIdentName,
-                alias: {'../img': '../public/img'},
+                alias: { '../img': '../public/img' },
               },
             },
             { path: 'postcss-loader' },
             {
-                path: 'sass-loader',
-                options: {
+              path: 'sass-loader',
+              options: {
                 outputStyle: 'expanded',
                 sourceMap: true,
-                },
+              },
             },
           ],
         }),
@@ -504,18 +504,29 @@ export default function webpackConfigFactory(buildOptions) {
                 // Note: The ExtractTextPlugin needs to be registered within the
                 // plugins section too.
                 ifProdClient(() => ({
-                  // loader: ExtractTextPlugin.extract({
-                  //   fallback: 'style-loader',
-                  //   use: ['css-loader'],
-                  // }),
                   use: [
                     'classnames-loader',
                     ...ExtractTextPlugin.extract({
                       fallback: 'style-loader',
                       use: [
-                        `css-loader?modules=0&importLoaders=1&localIdentName=${localIdentName}`,
-                        'postcss-loader',
-                        'sass-loader?outputStyle=expanded',
+                        {
+                          loader: 'css-loader',
+                          options: {
+                            sourceMap: false,
+                            modules: false,
+                            importLoaders: 1,
+                            localIdentName,
+                            alias: { '../img': '../public/img' },
+                          },
+                        },
+                        { loader: 'postcss-loader' },
+                        {
+                          loader: 'sass-loader',
+                          options: {
+                            outputStyle: 'expanded',
+                            sourceMap: false,
+                          },
+                        },
                       ],
                     }),
                   ],
@@ -538,7 +549,7 @@ export default function webpackConfigFactory(buildOptions) {
               exclude: /node_modules/,
               loader: 'graphql-tag/loader',
             },
-           // Dont CSS modules on css files from node_modules folder
+            // Dont CSS modules on css files from node_modules folder
             ifElse(isClient || isServer)({
               test: /node_modules.*\.css$/,
               use: ifProdClient(
@@ -582,9 +593,9 @@ export default function webpackConfigFactory(buildOptions) {
                 publicPath: isDev
                   ? // When running in dev mode the client bundle runs on a
                   // seperate port so we need to put an absolute path here.
-              `http://${config('host')}:${config('clientDevServerPort')}${config(
-                'bundles.client.webPath',
-              )}`
+                  `http://${config('host')}:${config('clientDevServerPort')}${config(
+                    'bundles.client.webPath',
+                  )}`
                   : // Otherwise we just use the configured web path for the client.
                   config('bundles.client.webPath'),
                 // We only emit files when building a web bundle, for the server

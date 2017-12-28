@@ -7,7 +7,7 @@ import userAuth                 from './modules/userAuth';
 
 const appReducers = {
   views,
-  userAuth
+  userAuth,
 };
 
 // REDUCER EXPORT

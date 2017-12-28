@@ -24,30 +24,19 @@ const itemMenuWithMutation = graphql(
   {
     name: 'itemMenuMutation',
     props: ({ ownProps, itemMenuMutation }) => ({
-      setMenuItem(user) {
-        ownProps.setMutationLoading();
-
-        return loginUserMutation(user)
-          .then(
-            (
-              {
-                data: {
-                  logUser
-                }
-              }
-            ) => {
-              ownProps.onUserLoggedIn(logUser.token, logUser.user);
-              ownProps.unsetMutationLoading();
-              return Promise.resolve();
-            }
-          )
-          .catch(
-            (error)=> {
-              ownProps.onUserLogError(error);
-              ownProps.unsetMutationLoading();
-              return Promise.reject();
-            }
-          );
+      mutateItem(user) { // nombre de la prop en vista
+        // ownProps.setMutationLoading(); // dispatch accion (declarada en mapDispatchToProps )
+        return itemMenuMutation(user)
+          .then( ({ data: { setMenuItem } }) => {
+            // ownProps.onUserLoggedIn(setMenuItem.title, setMenuItem.route);
+            // ownProps.unsetMutationLoading();
+            return Promise.resolve();
+          })
+          .catch( (error) => {
+            // ownProps.onUserLogError(error);
+            // ownProps.unsetMutationLoading();
+            return Promise.reject(error);
+          });
       }
     })
   }

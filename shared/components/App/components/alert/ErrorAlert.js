@@ -20,6 +20,10 @@ class ErrorAlert extends PureComponent {
   render() {
     const { showAlert, errorTitle, errorMessage, onClose } = this.props;
 
+    if (!showAlert) {
+      return null;
+    }
+
     return (
       <Motion
         style={{

@@ -7,29 +7,27 @@ import PropTypes from 'prop-types';
 import cx from 'classnames';
 import { Field, reduxForm } from 'redux-form/immutable';
 
-import { renderField, renderErrors } from '../../components/Input';
+import { renderField } from '../../components/Input';
 import { ErrorAlert } from '../../components';
 
 class Protected extends PureComponent {
   static propTypes = {
     // react-router 4:
-    match: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired,
     history: PropTypes.object.isRequired,
 
     // views
-    currentView: PropTypes.string.isRequired,
     enterProtected: PropTypes.func.isRequired,
-    leaveProtected: PropTypes.func.isRequired
+    leaveProtected: PropTypes.func.isRequired,
+    mutateItem: PropTypes.func.isRequired,
   };
 
   state = {
-    viewEntersAnim: true
+    viewEntersAnim: true,
   };
 
   constructor(props) {
     super(props);
-    this.state = { errors: [] };
+    this.state = { error: false };
   }
 
   componentDidMount() {
@@ -42,38 +40,42 @@ class Protected extends PureComponent {
     leaveProtected();
   }
 
-  handleSubmit = (values) => {
-    console.log(values);
-    this.props.mutate({ variables: values })
-      .then((response) => {
-        if (response.errors && response.errors.length <= 0) {
-          // this.props.signInDispatcher(response.data.setMenuItem.id);
-          // this.props.router.replace('/');
-          console.log("guardado");
-        } else {
-          this.setState({
-            errors: response.data.setMenuItem.errors
-          });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
+  handleSubmit = async (values) => {
+    const {
+      mutateItem,
+      history,
+      reset,
+    } = this.props;
+
+    try {
+      await mutateItem({ variables: values });
+      reset();
+      history.push({ pathname: '/dashboard' });
+    } catch (error) {
+      this.setState({
+        error: { message: error.toString() },
       });
+    }
+  }
+
+  closeError = (event) => {
+    event.preventDefault();
+    this.setState({
+      error: false,
+    });
   }
 
   render() {
     const { handleSubmit, pristine, reset, submitting, mutationLoading, error } = this.props;
     const { viewEntersAnim } = this.state;
 
-    const errors = this.state.errors <= 0 ? null : renderErrors(this.state.errors);
-
     return (
       <div className={cx({ "view-enter": viewEntersAnim })}>
         <form onSubmit={handleSubmit(this.handleSubmit)}>
           <ErrorAlert
-            showAlert={!!error}
+            showAlert={!!this.state && this.state.error}
             errorTitle={'Error'}
-            errorMessage={error ? error.message : ''}
+            errorMessage={this.state && this.state.error ? this.state.error.message : ''}
             onClose={this.closeError}
           />
           <div>
@@ -82,24 +84,25 @@ class Protected extends PureComponent {
               type="text"
               component={renderField}
               label="Titulo"
+              placeholder="Titulo"
             />
             <Field
               name="route"
               type="text"
               component={renderField}
               label="Ruta"
+              placeholder="Ruta"
             />
             <Field
               name="order"
-              type="text"
+              type="number"
               component={renderField}
               label="Orden"
+              placeholder="Orden"
             />
           </div>
-          <button type="submit" className="btn btn-primary" disabled={pristine || submitting}>Submit</button>
-          <button type="button" className="btn btn-default" disabled={pristine || submitting} onClick={reset}>
-            Clear Values
-          </button>
+          <button type="submit" className="btn btn-primary" disabled={pristine || submitting || mutationLoading}>Submit</button>
+          <button type="button" className="btn btn-default" disabled={pristine || submitting} onClick={reset}>Clear Values</button>
         </form>
       </div>
     );
@@ -109,16 +112,8 @@ class Protected extends PureComponent {
 const validate = (values) => {
   const errors = {};
 
-  if (!values.email) {
-    errors.email = 'Required';
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
-
-  if (!values.password) {
-    errors.password = 'Required';
-  } else if (values.password.length <= 3) {
-    errors.password = 'Must be at least 4 characters';
+  if (!values.title) {
+    errors.title = 'Required';
   }
 
   return errors;

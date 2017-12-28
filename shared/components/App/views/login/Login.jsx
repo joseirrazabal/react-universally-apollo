@@ -2,25 +2,27 @@
 
 import React, {
   PureComponent
-}                     from 'react';
-import PropTypes      from 'prop-types';
-import cx             from 'classnames';
-import { Link }       from 'react-router-dom';
+} from 'react';
+import PropTypes from 'prop-types';
+import cx from 'classnames';
+import { Link } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form/immutable';
 import { ErrorAlert } from '../../components';
+import { renderField } from '../../components/Input';
 
-import {Container, Row, Col, CardGroup, Card, CardBody, Button, Input, InputGroup, InputGroupAddon} from "reactstrap";
+import { Container, Row, Col, CardGroup, Card, CardBody, Button, Input, InputGroup, InputGroupAddon } from "reactstrap";
 
 class Login extends PureComponent {
-  static propTypes= {
+  static propTypes = {
     // react-router 4:
-    match:    PropTypes.object.isRequired,
+    match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    history:  PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
 
     // views props:
     currentView: PropTypes.string.isRequired,
-    enterLogin:  PropTypes.func.isRequired,
-    leaveLogin:  PropTypes.func.isRequired,
+    enterLogin: PropTypes.func.isRequired,
+    leaveLogin: PropTypes.func.isRequired,
 
     // apollo props:
     user: PropTypes.shape({
@@ -29,22 +31,19 @@ class Login extends PureComponent {
 
     // auth props:
     userIsAuthenticated: PropTypes.bool.isRequired,
-    mutationLoading:     PropTypes.bool.isRequired,
-    error:               PropTypes.object,
+    mutationLoading: PropTypes.bool.isRequired,
+    error: PropTypes.object,
 
     // apollo actions
     loginUser: PropTypes.func.isRequired,
 
     // redux actions
     onUserLoggedIn: PropTypes.func.isRequired,
-    resetError:     PropTypes.func.isRequired
+    resetError: PropTypes.func.isRequired
   };
 
   state = {
     viewEntersAnim: true,
-
-    email:          '',
-    password:       ''
   };
 
   componentDidMount() {
@@ -60,112 +59,84 @@ class Login extends PureComponent {
   render() {
     const {
       viewEntersAnim,
-      email,
-      password
     } = this.state;
-    const {
-      mutationLoading,
-      error
-    } = this.props;
+
+    const { mutationLoading, handleSubmit, pristine, reset, submitting, error } = this.props;
 
     return (
       <div className={cx({ "view-enter": viewEntersAnim })}>
-        <div className="app flex-row align-items-center">
-          <Container>
-            <Row className="justify-content-center">
-              <Col md="8">
-                <CardGroup className="mb-0">
-                  <Card className="p-4">
-                    <CardBody className="card-body">
-                      <h1>Login</h1>
-                      <p className="text-muted">Sign In to your account</p>
-                      <InputGroup className="mb-3">
-                        <InputGroupAddon><i className="icon-user"></i></InputGroupAddon>
-                        <Input
+        <form onSubmit={handleSubmit(this.handleSubmit)}>
+          <div className="app flex-row align-items-center">
+            <Container>
+              <Row className="justify-content-center">
+                <Col md="8">
+                  <CardGroup className="mb-0">
+                    <Card className="p-4">
+                      <CardBody className="card-body">
+                        <h1>Login</h1>
+                        <p className="text-muted">Sign In to your account</p>
+                        <Field
+                          name="email"
                           type="text"
-                          className="form-control"
-                          id="inputEmail"
+                          component={renderField}
+                          label=""
                           placeholder="Username"
-                          // autoComplete="nofill"
-                          // role="presentation"
-                          value={email}
-                          onChange={this.handlesOnEmailChange}
-                        />
-                      </InputGroup>
-                      <InputGroup className="mb-4">
-                        <InputGroupAddon><i className="icon-lock"></i></InputGroupAddon>
-                        <Input
-                          type="password"
                           className="form-control"
-                          id="inputPassword"
-                          placeholder="Password"
-                          value={password}
-                          onChange={this.handlesOnPasswordChange}
+                          IconGroupAddon="icon-user"
                         />
-                      </InputGroup>
-                      <Row>
-                        <Col xs="12" className="text-right">
-                          <Button
-                            color="primary"
-                            className="px-4"
-                            disabled={mutationLoading}
-                            onClick={this.handlesOnLogin}
-                          >
-                            Login
-                          </Button>
-                        </Col>
-                      </Row>
-                    </CardBody>
-                  </Card>
-                </CardGroup>
-              </Col>
-            </Row>
-            <ErrorAlert
-              showAlert={!!error}
-              errorTitle={'Error'}
-              errorMessage={error ? error.message : ''}
-              onClose={this.closeError}
-            />
-          </Container>
-        </div>
+                        <Field
+                          name="password"
+                          type="password"
+                          component={renderField}
+                          label=""
+                          placeholder="Password"
+                          className="form-control"
+                          IconGroupAddon="icon-lock"
+                        />
+                        <Row>
+                          <Col xs="12" className="text-right">
+                            <Button
+                              type="submit"
+                              color="primary"
+                              className="px-4"
+                              disabled={pristine || submitting || mutationLoading}
+                            >
+                              Login
+                            </Button>
+                          </Col>
+                        </Row>
+                      </CardBody>
+                    </Card>
+                  </CardGroup>
+                </Col>
+              </Row>
+              <ErrorAlert
+                showAlert={!!error}
+                errorTitle={'Error'}
+                errorMessage={error ? error.message : ''}
+                onClose={this.closeError}
+              />
+            </Container>
+          </div>
+        </form>
       </div>
     );
   }
 
-  handlesOnEmailChange = (event) => {
-    event.preventDefault();
-    // should add some validator before setState in real use cases
-    this.setState({ email: event.target.value });
-  }
-
-  handlesOnPasswordChange = (event) => {
-    event.preventDefault();
-    // should add some validator before setState in real use cases
-    this.setState({ password: event.target.value });
-  }
-
-  handlesOnLogin = async (event) => {
-    event.preventDefault();
+  handleSubmit = async (values) => {
     const {
       loginUser,
-      history
+      history,
     } = this.props;
 
-    const {
-      email,
-      password
-    } = this.state;
-
-    const variables = {
-        email: email,
-        password: password
-    };
-
     try {
-      await loginUser({variables});
+      await loginUser({ variables: values });
       history.push({ pathname: '/protected' });
     } catch (error) {
       console.log('login went wrong..., error: ', error);
+      // this.setState({
+      //   error: { message: error.toString() },
+      // });
     }
   }
 
@@ -176,4 +147,6 @@ class Login extends PureComponent {
   }
 }
 
-export default Login;
+export default reduxForm({
+  form: 'example',
+})(Login);
