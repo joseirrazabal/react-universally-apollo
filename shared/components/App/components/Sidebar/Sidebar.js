@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Badge, Nav, NavItem } from 'reactstrap';
 import classNames from 'classnames';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 import nav from './_nav';
 
 class Sidebar extends Component {
@@ -26,6 +28,8 @@ class Sidebar extends Component {
     const props = this.props;
     const activeRoute = this.activeRoute;
     const handleClick = this.handleClick;
+
+    const { itemsMenu } = this.props;
 
     // badge addon to NavItem
     const badge = (badge) => {
@@ -97,11 +101,37 @@ class Sidebar extends Component {
     return (
       <div className="sidebar">
         <nav className="sidebar-nav">
-          <Nav>{navList(nav.items)}</Nav>
+          { itemsMenu &&
+            <Nav>{navList(itemsMenu)}</Nav>
+          }
         </nav>
       </div>
     );
   }
 }
 
-export default Sidebar;
+const getAllMenuItem = gql`
+  query getAllMenuItem{
+    getAllMenuItem {
+        title,
+        name,
+        order,
+        url,
+        icon,
+    }
+  }
+`;
+
+export default graphql(getAllMenuItem, {
+  // name: 'user',
+  // options: {
+  //   fetchPolicy: 'network-only',
+  //   ssr: false,
+  // },
+  props: ({
+    data: { loading, getAllMenuItem},
+  }) => ({
+    loading,
+    itemsMenu: getAllMenuItem,
+  }),
+})(Sidebar);

@@ -80,18 +80,32 @@ class Protected extends PureComponent {
           />
           <div>
             <Field
-              name="title"
+              name="name"
               type="text"
+              component={renderField}
+              label="Nombre"
+              placeholder="Nombre"
+            />
+            <Field
+              name="title"
+              type="checkbox"
               component={renderField}
               label="Titulo"
               placeholder="Titulo"
             />
             <Field
-              name="route"
+              name="url"
               type="text"
               component={renderField}
               label="Ruta"
               placeholder="Ruta"
+            />
+            <Field
+              name="icon"
+              type="text"
+              component={renderField}
+              label="Icono"
+              placeholder="Icono"
             />
             <Field
               name="order"
@@ -112,8 +126,8 @@ class Protected extends PureComponent {
 const validate = (values) => {
   const errors = {};
 
-  if (!values.title) {
-    errors.title = 'Required';
+  if (!values.name) {
+    errors.name = 'Required';
   }
 
   return errors;

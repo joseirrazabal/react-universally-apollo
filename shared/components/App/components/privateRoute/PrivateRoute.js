@@ -57,7 +57,7 @@ class PrivateRoute extends Component {
       <div className="app">
         <Header />
         <div className="app-body">
-          <Sidebar {...this.props} brand={navModel.brand} navModel={navModel} />
+          <Sidebar {...this.props} />
           <main className="main">
             <Breadcrumb />
             <div className="container-fluid">

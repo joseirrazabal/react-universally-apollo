@@ -9,11 +9,13 @@ import * as viewsActions from '../../../../reducers/modules/views';
 import { Protected } from '../../views';
 
 const itemMenuInMutation = gql`
-    mutation menuItem($title: String!, $route: String, $order: Int) {
-      setMenuItem(title: $title, route: $route, order: $order) {
+    mutation menuItem($name: String!, $title: Boolean, $url: String, $order: Int, $icon: String) {
+      setMenuItem(name: $name, title: $title, url: $url, order: $order, icon: $icon) {
         id
+        name
         title
-        route
+        url
+        icon
         order
       }
     }
