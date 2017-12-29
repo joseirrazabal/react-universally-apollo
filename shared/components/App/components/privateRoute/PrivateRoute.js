@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withApollo } from 'react-apollo';
 import { Redirect, withRouter } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
@@ -100,4 +101,4 @@ export default graphql(loggedUser, {
     loading,
     currentUser: loggedInUser,
   }),
-})(withRouter(PrivateRoute));
+})(withRouter(withApollo(PrivateRoute)));

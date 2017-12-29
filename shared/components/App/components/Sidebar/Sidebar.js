@@ -6,7 +6,43 @@ import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import nav from './_nav';
 
+const menuItemSubscription = gql`
+  subscription menuItemAdded($credential: Int) {
+    menuItemAdded(credential: $credential) {
+      title,
+      name,
+      order,
+      url,
+      icon,
+    }
+  }
+`;
+
 class Sidebar extends Component {
+	componentWillMount() {
+		this.props.subscribeToMore({
+      document: menuItemSubscription,
+      variables: {
+        credential: 2,
+      },
+			updateQuery: (prev, { subscriptionData }) => {
+				if (!subscriptionData.data) {
+					return prev;
+				}
+
+				const newMenuItem = subscriptionData.data.menuItemAdded;
+
+				if (!prev.itemsMenu.find((msg) => msg.name === newMenuItem.name )) {
+					return Object.assign({}, prev, {
+						itemsMenu: [...prev.itemsMenu, newMenuItem]
+					});
+				} else {
+					return prev;
+				}
+			}
+		})
+	}
+
   handleClick(e) {
     e.preventDefault();
     e.target.parentElement.classList.toggle('open');
@@ -101,7 +137,7 @@ class Sidebar extends Component {
     return (
       <div className="sidebar">
         <nav className="sidebar-nav">
-          { itemsMenu &&
+          {itemsMenu &&
             <Nav>{navList(itemsMenu)}</Nav>
           }
         </nav>
@@ -129,9 +165,10 @@ export default graphql(getAllMenuItem, {
   //   ssr: false,
   // },
   props: ({
-    data: { loading, getAllMenuItem},
+    data: { loading, getAllMenuItem, subscribeToMore },
   }) => ({
-    loading,
-    itemsMenu: getAllMenuItem,
-  }),
+      subscribeToMore,
+      loading,
+      itemsMenu: getAllMenuItem,
+    }),
 })(Sidebar);

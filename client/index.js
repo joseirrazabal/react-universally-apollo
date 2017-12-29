@@ -30,7 +30,7 @@ const clientOptions = {
 };
 const apolloClient = createApolloClient({
   clientOptions,
-  networkInterface: getNetworkInterface()
+  networkInterface: getNetworkInterface(),
 });
 
 // Create our Redux store.
