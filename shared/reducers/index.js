@@ -14,7 +14,7 @@ const appReducers = {
 export default function getReducers(apolloClient) {
   return combineReducers({
     ...appReducers,
-    apollo: apolloClient.reducer(),
+    // apollo: apolloClient.reducer(),
     form: formReducer,
   });
 }

@@ -1,3 +1,4 @@
+/*
 import {
   createBatchingNetworkInterface,
   createNetworkInterface
@@ -59,3 +60,4 @@ export class HTTPHybridNetworkInterface {
 export function createHybridNetworkInterface(opts = {}, headers = {}) {
   return new HTTPHybridNetworkInterface(opts, headers);
 }
+*/

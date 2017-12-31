@@ -6,6 +6,7 @@ import compression from 'compression';
 import { resolve as pathResolve } from 'path';
 import appRootDir from 'app-root-dir';
 import { graphqlExpress, graphiqlExpress } from 'graphql-server-express';
+import proxy from 'http-proxy-middleware';
 import reactApplication from './middleware/reactApplication';
 import security from './middleware/security';
 import clientBundle from './middleware/clientBundle';
@@ -17,7 +18,6 @@ import executableSchema from './data/executableSchema';
 import config from '../config';
 import { log } from '../internal/utils';
 
-import proxy from 'http-proxy-middleware';
 // Create our express based server.
 const app = express();
 

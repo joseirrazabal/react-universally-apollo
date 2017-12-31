@@ -50,9 +50,10 @@ export default (async function reactApplicationMiddleware(request, response) {
   const networkInterface = getNetworkInterface(clientOptions, request.headers);
 
   const apolloClient = createApolloClient({
-    request,
-    clientOptions,
-    networkInterface
+    true
+    // request,
+    // clientOptions,
+    // networkInterface
   });
 
   // It's possible to disable SSR, which can be useful in development mode.
@@ -88,11 +89,13 @@ export default (async function reactApplicationMiddleware(request, response) {
   const app = (
     <AsyncComponentProvider asyncContext={asyncContext}>
       <StaticRouter location={request.url} context={reactRouterContext}>
-        <ApolloProvider store={store} client={apolloClient}>
-          <App />
+        <ApolloProvider client={apolloClient}>
+          <Provider store={store}>
+            <App />
+          </Provider>
         </ApolloProvider>
       </StaticRouter>
-    </AsyncComponentProvider>
+    </AsyncComponentProvider >
   );
 
   // Traverses entire React tree and determines which queries are needed to render, then
@@ -127,13 +130,13 @@ export default (async function reactApplicationMiddleware(request, response) {
 
     response
       .status(
-        reactRouterContext.missed
-          ? // If the renderResult contains a "missed" match then we set a 404 code.
-          // Our App component will handle the rendering of an Error404 view.
-          404
-          : // Otherwise everything is all good and we send a 200 OK status.
-          200,
-      )
+      reactRouterContext.missed
+        ? // If the renderResult contains a "missed" match then we set a 404 code.
+        // Our App component will handle the rendering of an Error404 view.
+        404
+        : // Otherwise everything is all good and we send a 200 OK status.
+        200,
+    )
       .send(`<!DOCTYPE html>${html}`);
   });
 });

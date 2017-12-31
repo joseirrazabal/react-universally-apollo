@@ -12,7 +12,7 @@ function configureStore(apolloClient, initialState) {
       // preconfigured axios instance which can be used to fetch data with.
       // @see https://github.com/gaearon/redux-thunk
       thunk.withExtraArgument({ axios }),
-      apolloClient.middleware(),
+      // apolloClient.middleware(),
     ),
     // Redux Dev Tools store enhancer.
     // @see https://github.com/zalmoxisus/redux-devtools-extension

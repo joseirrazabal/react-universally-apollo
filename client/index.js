@@ -8,7 +8,8 @@ import asyncBootstrapper from "react-async-bootstrapper";
 import { AsyncComponentProvider } from "react-async-component";
 import { ApolloProvider } from "react-apollo";
 import configureStore from "../shared/redux/configureStore";
-import { createApolloClient, getNetworkInterface } from "../shared/apollo";
+import { createApolloClient } from "../shared/apollo";
+import { Provider } from 'react-redux';
 
 import "./polyfills";
 
@@ -29,8 +30,8 @@ const clientOptions = {
   connectToDevTools: true
 };
 const apolloClient = createApolloClient({
-  clientOptions,
-  networkInterface: getNetworkInterface(),
+  // clientOptions,
+  // networkInterface: getNetworkInterface(),
 });
 
 // Create our Redux store.
@@ -59,13 +60,15 @@ function renderApp(TheApp) {
   const app = (
     <ReactHotLoader>
       <AsyncComponentProvider rehydrateState={asyncComponentsRehydrateState}>
-        <ApolloProvider store={store} client={apolloClient}>
-          <BrowserRouter forceRefresh={!supportsHistory}>
-            <TheApp />
-          </BrowserRouter>
+        <ApolloProvider client={apolloClient}>
+          <Provider store={store}>
+            <BrowserRouter forceRefresh={!supportsHistory}>
+              <TheApp />
+            </BrowserRouter>
+          </Provider>
         </ApolloProvider>
-      </AsyncComponentProvider>
-    </ReactHotLoader>
+      </AsyncComponentProvider >
+    </ReactHotLoader >
   );
 
   // We use the react-async-component in order to support code splitting of
