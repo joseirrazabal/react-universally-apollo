@@ -7,8 +7,8 @@ import { graphql } from 'react-apollo';
 import nav from './_nav';
 
 const menuItemSubscription = gql`
-  subscription menuItemAdded($credential: Int) {
-    menuItemAdded(credential: $credential) {
+  subscription menuItemAdded {
+    menuItemAdded {
       title,
       name,
       order,
@@ -22,9 +22,9 @@ class Sidebar extends Component {
 	componentWillMount() {
 		this.props.subscribeToMore({
       document: menuItemSubscription,
-      variables: {
-        credential: 2,
-      },
+      // variables: {
+      //   credential: 2,
+      // },
 			updateQuery: (prev, { subscriptionData }) => {
 				if (!subscriptionData.data) {
 					return prev;
@@ -32,16 +32,16 @@ class Sidebar extends Component {
 
 				const newMenuItem = subscriptionData.data.menuItemAdded;
 
-				if (!prev.itemsMenu.find((msg) => msg.name === newMenuItem.name )) {
+				if (!prev.getAllMenuItem.find((msg) => msg.name === newMenuItem.name )) {
 					return Object.assign({}, prev, {
-						itemsMenu: [...prev.itemsMenu, newMenuItem]
+						getAllMenuItem: [...prev.getAllMenuItem, newMenuItem],
 					});
 				} else {
 					return prev;
 				}
 			}
 		})
-	}
+  }
 
   handleClick(e) {
     e.preventDefault();

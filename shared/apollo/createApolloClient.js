@@ -2,11 +2,10 @@ import { ApolloClient } from 'apollo-client';
 import { ApolloLink, split } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { WebSocketLink } from 'apollo-link-ws';
-import { SubscriptionClient } from 'subscriptions-transport-ws';
 import { getMainDefinition } from 'apollo-utilities';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import ws from 'ws';
-import { ApolloCache } from 'apollo-cache';
+import fetch from 'node-fetch';
+import { onError } from 'apollo-link-error';
 
 // The ApolloClient takes its options as well as a network interface.
 // function createApolloClient({ clientOptions = {}, networkInterface }) {
@@ -37,6 +36,7 @@ function createApolloClient(server = false) {
   const httpLink = new HttpLink({
     uri: '/graphql',
   });
+
   const middlewareLink = new ApolloLink((operation, forward) => {
     operation.setContext({
       headers: {
@@ -47,25 +47,74 @@ function createApolloClient(server = false) {
   });
   const httpLinkFinal = middlewareLink.concat(httpLink);
 
-  const client = new SubscriptionClient('ws://localhost:4000/subscriptions', {
-    reconnect: true,
-  }, ws);
-  const wsLink = new WebSocketLink(client);
-
-  const link = split(
-    ({ query }) => {
-      const { kind, operation } = getMainDefinition(query);
-      return kind === 'OperationDefinition' && operation === 'subscription';
-    },
-    server ? wsLink : null,
-    httpLinkFinal,
-  );
-
-  return new ApolloClient({
-    link,
-    cache: new InMemoryCache(),
-    // ...options,
+  const errorLink = onError(({ graphQLErrors, networkError }) => {
+    if (graphQLErrors)
+      graphQLErrors.map(({ message, location, path }) =>
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${location}, Path: ${path}`
+        )
+      );
+    if (networkError) console.log(`[Network error]: ${networkError}`);
   });
+
+  if (typeof localStorage !== 'undefined') {
+    console.log("cliente")
+
+    const wsLink = new WebSocketLink({
+      uri: 'ws://localhost:4000/subscriptions',
+      options: {
+        reconnect: true,
+        connectionParams: {
+          authorization: localStorage.getItem('token') || null,
+        },
+      },
+    });
+
+    const link = split(
+      ({ query }) => {
+        const { kind, operation } = getMainDefinition(query);
+        return kind === 'OperationDefinition' && operation === 'subscription';
+      },
+      wsLink,
+      httpLinkFinal,
+    );
+
+    return new ApolloClient({
+      link,
+      cache: new InMemoryCache(),
+      // ...options,
+    });
+
+  } else {
+    console.log("servidor")
+
+    const queryOrMutationLink = (config = {}) =>
+      new ApolloLink((operation, forward) => {
+        operation.setContext({
+          credentials: 'same-origin',
+          headers: {
+            authorization: localStorage.getItem('token') || null,
+          },
+        });
+        return forward(operation);
+      }).concat(
+        new HttpLink({
+          ...config,
+        })
+        );
+
+    return new ApolloClient({
+      ssrMode: true,
+      errorLink,
+      link: ApolloLink.from([
+        queryOrMutationLink({
+          fetch,
+          uri: `/graphql`,
+        }),
+      ]),
+      cache: new InMemoryCache(),
+    });
+  }
 
   // return new ApolloClient({
   //   networkInterface,

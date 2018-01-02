@@ -4,7 +4,6 @@ import config from "../../config";
 // import { createHybridNetworkInterface } from "./hybridNetworkInterface";
 
 function createSimpleNetworkInterface(opts = {}, headers = {}) {
-  console.log("bien")
   // const richerOpts = merge(
   //   {},
   //   {

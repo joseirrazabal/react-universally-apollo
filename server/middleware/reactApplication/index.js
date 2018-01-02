@@ -49,12 +49,12 @@ export default (async function reactApplicationMiddleware(request, response) {
   // Pass our headers to the networkInterface so that we can set headers / provide cookie or token.
   const networkInterface = getNetworkInterface(clientOptions, request.headers);
 
-  const apolloClient = createApolloClient({
-    true
+  // const apolloClient = createApolloClient({
     // request,
     // clientOptions,
     // networkInterface
-  });
+  // });
+  const apolloClient = createApolloClient()
 
   // It's possible to disable SSR, which can be useful in development mode.
   // In this case traditional client side only rendering will occur.
