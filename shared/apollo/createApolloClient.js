@@ -57,9 +57,7 @@ function createApolloClient(server = false) {
     if (networkError) console.log(`[Network error]: ${networkError}`);
   });
 
-  if (typeof localStorage !== 'undefined') {
-    console.log("cliente")
-
+  if (typeof window !== 'undefined') {
     const wsLink = new WebSocketLink({
       uri: 'ws://localhost:4000/subscriptions',
       options: {
@@ -86,8 +84,6 @@ function createApolloClient(server = false) {
     });
 
   } else {
-    console.log("servidor")
-
     const queryOrMutationLink = (config = {}) =>
       new ApolloLink((operation, forward) => {
         operation.setContext({

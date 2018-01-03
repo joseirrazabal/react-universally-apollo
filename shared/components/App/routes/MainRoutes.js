@@ -14,8 +14,8 @@ import {
   ConnectedProtected,
 } from '../containers';
 
-import PrivateRoute from '../components/privateRoute/PrivateRoute';
-import LogoutRoute from '../components/logoutRoute/LogoutRoute';
+import PrivateRoute from '../components/privateRoute';
+import LogoutRoute from '../components/logoutRoute';
 // import AsyncPostsRoute from '../AsyncPostsRoute';
 
 //import Page404 from '../views/Pages/Page404/';

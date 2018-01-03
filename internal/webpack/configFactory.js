@@ -221,6 +221,10 @@ export default function webpackConfigFactory(buildOptions) {
             raw: true,
             entryOnly: false,
           }),
+          new webpack.NormalModuleReplacementPlugin(
+            /\/iconv-loader$/, 'node-noop',
+          ),
+
       ),
 
       // Implement webpack 3 scope hoisting that will remove function wrappers

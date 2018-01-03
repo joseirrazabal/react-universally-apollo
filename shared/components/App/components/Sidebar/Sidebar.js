@@ -4,43 +4,40 @@ import { Badge, Nav, NavItem } from 'reactstrap';
 import classNames from 'classnames';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
-import nav from './_nav';
-
-const menuItemSubscription = gql`
-  subscription menuItemAdded {
-    menuItemAdded {
-      title,
-      name,
-      order,
-      url,
-      icon,
-    }
-  }
-`;
+// import nav from './_nav';
 
 class Sidebar extends Component {
-	componentWillMount() {
-		this.props.subscribeToMore({
-      document: menuItemSubscription,
-      // variables: {
-      //   credential: 2,
-      // },
-			updateQuery: (prev, { subscriptionData }) => {
-				if (!subscriptionData.data) {
-					return prev;
-				}
 
-				const newMenuItem = subscriptionData.data.menuItemAdded;
+  componentDidMount() {
+    this.subscribeToNewMenuItem();
+  }
 
-				if (!prev.getAllMenuItem.find((msg) => msg.name === newMenuItem.name )) {
-					return Object.assign({}, prev, {
-						getAllMenuItem: [...prev.getAllMenuItem, newMenuItem],
-					});
-				} else {
-					return prev;
-				}
-			}
-		})
+  subscribeToNewMenuItem = () => {
+    this.props.subscribeToMore({
+      document: gql`
+        subscription {
+          menuItemAdded {
+            title,
+            name,
+            order,
+            url,
+            icon,
+          }
+        }
+      `,
+      updateQuery: (previous, { subscriptionData }) => {
+        if (subscriptionData.data) {
+          const newObj = subscriptionData.data.menuItemAdded;
+
+          if (!previous.getAllMenuItem.find(msg => msg.name === newObj.name)) {
+            return Object.assign({}, previous, {
+              getAllMenuItem: [...previous.getAllMenuItem, newObj],
+            });
+          }
+        }
+        return previous;
+      },
+    });
   }
 
   handleClick(e) {
