@@ -122,34 +122,35 @@ export default function withServiceWorker(webpackConfig, bundleConfig) {
             )
                 // Add any included public folder assets.
                 .concat(
-                    config(
-                        'serviceWorker.includePublicAssets'
-                    ).reduce((acc, cur) => {
-                        const publicAssetPathGlob = path.resolve(
-                            appRootDir.get(),
-                            config('publicAssetsPath'),
-                            cur
-                        )
-                        const publicFileWebPaths = acc.concat(
-                            // First get all the matching public folder files.
-                            globSync(publicAssetPathGlob, { nodir: true })
-                                // Then map them to relative paths against the public folder.
-                                // We need to do this as we need the "web" paths for each one.
-                                .map(publicFile =>
-                                    path.relative(
-                                        path.resolve(
-                                            appRootDir.get(),
-                                            config('publicAssetsPath')
-                                        ),
-                                        publicFile
+                    config('serviceWorker.includePublicAssets').reduce(
+                        (acc, cur) => {
+                            const publicAssetPathGlob = path.resolve(
+                                appRootDir.get(),
+                                config('publicAssetsPath'),
+                                cur
+                            )
+                            const publicFileWebPaths = acc.concat(
+                                // First get all the matching public folder files.
+                                globSync(publicAssetPathGlob, { nodir: true })
+                                    // Then map them to relative paths against the public folder.
+                                    // We need to do this as we need the "web" paths for each one.
+                                    .map(publicFile =>
+                                        path.relative(
+                                            path.resolve(
+                                                appRootDir.get(),
+                                                config('publicAssetsPath')
+                                            ),
+                                            publicFile
+                                        )
                                     )
-                                )
-                                // Add the leading "/" indicating the file is being hosted
-                                // off the root of the application.
-                                .map(relativePath => `/${relativePath}`)
-                        )
-                        return publicFileWebPaths
-                    }, [])
+                                    // Add the leading "/" indicating the file is being hosted
+                                    // off the root of the application.
+                                    .map(relativePath => `/${relativePath}`)
+                            )
+                            return publicFileWebPaths
+                        },
+                        []
+                    )
                 )
         })
     )

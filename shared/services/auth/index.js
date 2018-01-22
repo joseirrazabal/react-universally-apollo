@@ -27,12 +27,12 @@ export const auth = {
     // /////////////////////////////////////////////////////////////
 
     /**
-   * get token from localstorage
-   *
-   * @param {'localStorage' | 'sessionStorage'} [fromStorage='localStorage'] specify storage
-   * @param {any} [tokenKey=TOKEN_KEY]  optionnal parameter to specify a token key
-   * @returns {string} token value
-   */
+     * get token from localstorage
+     *
+     * @param {'localStorage' | 'sessionStorage'} [fromStorage='localStorage'] specify storage
+     * @param {any} [tokenKey=TOKEN_KEY]  optionnal parameter to specify a token key
+     * @returns {string} token value
+     */
     getToken(
         fromStorage: Storage = APP_PERSIST_STORES_TYPES[0],
         tokenKey: TokenKey = TOKEN_KEY
@@ -50,13 +50,13 @@ export const auth = {
     },
 
     /**
-  * set the token value into localstorage (managed by localforage)
-  *
-  * @param {string} [value=''] token value
-  * @param {'localStorage' | 'sessionStorage'} [toStorage='localStorage'] specify storage
-  * @param {any} [tokenKey='token'] token key
-  * @returns {boolean} success/failure flag
-  */
+     * set the token value into localstorage (managed by localforage)
+     *
+     * @param {string} [value=''] token value
+     * @param {'localStorage' | 'sessionStorage'} [toStorage='localStorage'] specify storage
+     * @param {any} [tokenKey='token'] token key
+     * @returns {boolean} success/failure flag
+     */
     setToken(
         value: string = '',
         toStorage: Storage = APP_PERSIST_STORES_TYPES[0],
@@ -80,26 +80,26 @@ export const auth = {
     },
 
     /**
-   * check
-   * - if token key contains a valid token value (defined and not an empty value)
-   * - if the token expiration date is passed
-   *
-   *
-   * Note: 'isAuthenticated' just checks 'tokenKey' on store (localStorage by default or sessionStorage)
-   *
-   * You may think: 'ok I just put an empty token key and I have access to protected routes?''
-   *    -> answer is:  YES^^
-   * BUT
-   * -> : your backend will not recognize a wrong token so private data or safe and you protected view could be a bit ugly without any data.
-   *
-   * => ON CONCLUSION: this aim of 'isAuthenticated'
-   *    -> is to help for a better "user experience"  (= better than displaying a view with no data since server did not accept the user).
-   *    -> it is not a security purpose (security comes from backend, since frontend is easily hackable => user has access to all your frontend)
-   *
-   * @param {'localStorage' | 'sessionStorage'} [fromStorage='localStorage'] specify storage
-   * @param {any} [tokenKey=TOKEN_KEY] token key
-   * @returns {bool} is authenticed response
-   */
+     * check
+     * - if token key contains a valid token value (defined and not an empty value)
+     * - if the token expiration date is passed
+     *
+     *
+     * Note: 'isAuthenticated' just checks 'tokenKey' on store (localStorage by default or sessionStorage)
+     *
+     * You may think: 'ok I just put an empty token key and I have access to protected routes?''
+     *    -> answer is:  YES^^
+     * BUT
+     * -> : your backend will not recognize a wrong token so private data or safe and you protected view could be a bit ugly without any data.
+     *
+     * => ON CONCLUSION: this aim of 'isAuthenticated'
+     *    -> is to help for a better "user experience"  (= better than displaying a view with no data since server did not accept the user).
+     *    -> it is not a security purpose (security comes from backend, since frontend is easily hackable => user has access to all your frontend)
+     *
+     * @param {'localStorage' | 'sessionStorage'} [fromStorage='localStorage'] specify storage
+     * @param {any} [tokenKey=TOKEN_KEY] token key
+     * @returns {bool} is authenticed response
+     */
     isAuthenticated(
         fromStorage: Storage = APP_PERSIST_STORES_TYPES[0],
         tokenKey: TokenKey = TOKEN_KEY
@@ -123,11 +123,11 @@ export const auth = {
     },
 
     /**
-   * delete token
-   *
-   * @param {any} [tokenKey='token'] token key
-   * @returns {bool} success/failure flag
-   */
+     * delete token
+     *
+     * @param {any} [tokenKey='token'] token key
+     * @returns {bool} success/failure flag
+     */
     clearToken(
         storage: Storage = APP_PERSIST_STORES_TYPES[0],
         tokenKey: TokenKey = TOKEN_KEY
@@ -147,11 +147,11 @@ export const auth = {
     },
 
     /**
-   * return expiration date from token
-   *
-   * @param {string} encodedToken - base 64 token received from server and stored in local storage
-   * @returns {date | null} returns expiration date or null id expired props not found in decoded token
-   */
+     * return expiration date from token
+     *
+     * @param {string} encodedToken - base 64 token received from server and stored in local storage
+     * @returns {date | null} returns expiration date or null id expired props not found in decoded token
+     */
     getTokenExpirationDate(encodedToken: any): Date {
         if (!encodedToken) {
             return new Date(0) // is expired
@@ -166,11 +166,11 @@ export const auth = {
     },
 
     /**
-   * tell is token is expired (compared to now)
-   *
-   * @param {string} encodedToken - base 64 token received from server and stored in local storage
-   * @returns {bool} returns true if expired else false
-   */
+     * tell is token is expired (compared to now)
+     *
+     * @param {string} encodedToken - base 64 token received from server and stored in local storage
+     * @returns {bool} returns true if expired else false
+     */
     isExpiredToken(encodedToken: any): boolean {
         const expirationDate = this.getTokenExpirationDate(encodedToken)
         const rightNow = moment()
@@ -183,12 +183,12 @@ export const auth = {
     // USER_INFO
     // /////////////////////////////////////////////////////////////
     /**
-   * get user info from localstorage
-   *
-   * @param {'localStorage' | 'sessionStorage'} [fromStorage='localStorage'] specify storage
-   * @param {any} [userInfoKey='userInfo']  optionnal parameter to specify a token key
-   * @returns {string} token value
-   */
+     * get user info from localstorage
+     *
+     * @param {'localStorage' | 'sessionStorage'} [fromStorage='localStorage'] specify storage
+     * @param {any} [userInfoKey='userInfo']  optionnal parameter to specify a token key
+     * @returns {string} token value
+     */
     getUserInfo(
         fromStorage: Storage = APP_PERSIST_STORES_TYPES[0],
         userInfoKey: UserInfoKey = USER_INFO
@@ -213,13 +213,13 @@ export const auth = {
     },
 
     /**
-   * set the userInfo value into localstorage
-   *
-   * @param {object} [value=''] token value
-   * @param {'localStorage' | 'sessionStorage'} [toStorage='localStorage'] specify storage
-   * @param {any} [userInfoKey='userInfo'] token key
-   * @returns {boolean} success/failure flag
-   */
+     * set the userInfo value into localstorage
+     *
+     * @param {object} [value=''] token value
+     * @param {'localStorage' | 'sessionStorage'} [toStorage='localStorage'] specify storage
+     * @param {any} [userInfoKey='userInfo'] token key
+     * @returns {boolean} success/failure flag
+     */
     setUserInfo(
         value: string = '',
         toStorage: Storage = APP_PERSIST_STORES_TYPES[0],
@@ -243,11 +243,11 @@ export const auth = {
     },
 
     /**
-   * delete userInfo
-   *
-   * @param {string} [userInfoKey='userInfo'] token key
-   * @returns {bool} success/failure flag
-   */
+     * delete userInfo
+     *
+     * @param {string} [userInfoKey='userInfo'] token key
+     * @returns {bool} success/failure flag
+     */
     clearUserInfo(userInfoKey: UserInfoKey = USER_INFO): any {
         // localStorage:
         if (localStorage && localStorage[userInfoKey]) {
@@ -264,9 +264,9 @@ export const auth = {
     // /////////////////////////////////////////////////////////////
 
     /**
-   * forget me method: clear all
-   * @returns {bool} success/failure flag
-   */
+     * forget me method: clear all
+     * @returns {bool} success/failure flag
+     */
     clearAllAppStorage(): any {
         if (localStorage) {
             localStorage.clear()

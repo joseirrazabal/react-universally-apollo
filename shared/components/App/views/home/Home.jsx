@@ -47,7 +47,9 @@ class Home extends PureComponent {
                     <title>About</title>
                 </Helmet>
 
-                <Button raised color="primary" to="/menuItem" component={Link} >Default</Button>
+                <Button raised color="primary" to="/menuItem" component={Link}>
+                    Default
+                </Button>
             </div>
         )
     }
