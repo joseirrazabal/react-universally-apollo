@@ -1,10 +1,10 @@
 // @flow weak
 
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Field, reduxForm } from 'redux-form/immutable';
-import { translate } from 'react-i18next';
-import cx from 'classnames';
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import { Field, reduxForm } from 'redux-form/immutable'
+import { translate } from 'react-i18next'
+import cx from 'classnames'
 
 import Button from 'material-ui/Button'
 import Save from 'material-ui-icons/Save'
