@@ -175,7 +175,6 @@ class PersistentDrawer extends React.Component {
                     aria-owns={openUserMenu ? 'menu-appbar' : null}
                     aria-haspopup="true"
                     onClick={this.handleUserMenuToggle}
-                    color="contrast"
                 >
                     <AccountCircle />
                 </IconButton>
@@ -305,7 +304,6 @@ class PersistentDrawer extends React.Component {
                             >
                                 <Toolbar>
                                     <IconButton
-                                        color="contrast"
                                         aria-label="open drawer"
                                         onClick={this.handleDrawerOpen}
                                         className={classNames(
@@ -317,7 +315,6 @@ class PersistentDrawer extends React.Component {
                                     </IconButton>
                                     <Typography
                                         type="title"
-                                        color="inherit"
                                         className={classes.flex}
                                         noWrap
                                         style={{ textDecoration: 'none' }}

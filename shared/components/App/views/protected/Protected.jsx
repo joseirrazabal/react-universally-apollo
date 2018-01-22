@@ -174,7 +174,6 @@ class Protected extends PureComponent {
                     <Button
                         disabled={pristine || submitting}
                         raised
-                        color="accent"
                         onClick={reset}
                     >
                         {t('asdf')}
