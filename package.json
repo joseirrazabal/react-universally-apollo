@@ -29,15 +29,6 @@
     "lint-staged": {
         "*.{js,jsx,json}": ["prettier --write", "git add"]
     },
-    "jest": {
-        "collectCoverageFrom": ["src/**/*.{js,jsx}"],
-        "snapshotSerializers": [
-            "<rootDir>/node_modules/enzyme-to-json/serializer"
-        ],
-        "testPathIgnorePatterns": [
-            "<rootDir>/(build|internal|node_modules|public)/"
-        ]
-    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/ctrlplusb/react-universally.git"
@@ -177,6 +168,7 @@
         "react-test-renderer": "15.6.1",
         "rimraf": "2.6.2",
         "webpack": "^3.10.0",
+        "webpack-bundle-analyzer": "^2.9.2",
         "webpack-dev-middleware": "^2.0.3",
         "webpack-hot-middleware": "^2.21.0",
         "webpack-md5-hash": "^0.0.6",
