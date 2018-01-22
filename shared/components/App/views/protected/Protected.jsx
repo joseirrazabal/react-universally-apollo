@@ -22,6 +22,7 @@ import {
 
 import { renderField, ErrorAlert } from '../../components'
 
+let bien = '123'
 class Protected extends PureComponent {
     static propTypes = {
         // react-router 4:
