@@ -4,7 +4,7 @@
     "description": "A starter kit for universal react applications.",
     "main": "build/server/index.js",
     "engines": {
-        "node": ">=6"
+        "node": ">=8"
     },
     "scripts": {
         "flow": "flow",
@@ -149,8 +149,9 @@
         "babel-template": "6.26.0",
         "chokidar": "1.7.0",
         "css-loader": "0.28.9",
-        "enzyme": "2.9.1",
-        "enzyme-to-json": "2.0.0",
+        "enzyme": "^3.3.0",
+        "enzyme-adapter-react-16": "^1.1.1",
+        "enzyme-to-json": "^3.0.0-beta6",
         "eslint": "4.15.0",
         "eslint-config-airbnb": "15.1.0",
         "eslint-config-prettier": "^2.9.0",
