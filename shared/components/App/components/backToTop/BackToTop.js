@@ -1,6 +1,3 @@
-/* global $:true */
-// @flow weak
-
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { smoothScroll } from './lib/smoothScroll'
@@ -48,7 +45,7 @@ class BackToTop extends Component {
             >
                 {({ interpolatedX }) => (
                     <BackToTopButton
-                        position={'bottom-right'}
+                        position="bottom-right"
                         onClick={this.handlesOnBackButtonClick}
                         motionStyle={{
                             WebkitTransform: `translate3d(${interpolatedX}px, 0, 0)`,

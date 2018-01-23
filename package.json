@@ -7,7 +7,7 @@
         "node": ">=8"
     },
     "scripts": {
-        "flow": "flow",
+        "flow": "flow status",
         "analyze:client": "babel-node internal/scripts/analyze --client",
         "analyze:server": "babel-node internal/scripts/analyze --server",
         "build": "babel-node internal/scripts/build --optimize",
@@ -16,7 +16,7 @@
         "deploy": "babel-node internal/scripts/deploy",
         "develop":
             "cross-env DEPLOYMENT=development babel-node internal/development",
-        "lint": "eslint client server shared config internal",
+        "lint": "eslint shared",
         "precommit": "lint-staged && npm run lint",
         "preinstall": "node internal/scripts/preinstall",
         "prepush": "jest",

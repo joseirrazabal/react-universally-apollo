@@ -1,5 +1,3 @@
-// @flow
-
 import type { Storage, TokenKey, UserInfoKey, STORES_TYPES } from './type'
 import decode from 'jwt-decode'
 import moment from 'moment'

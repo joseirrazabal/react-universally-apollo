@@ -1,7 +1,13 @@
 {
   "parser": "babel-eslint",
-//   "extends": "airbnb",
-  "extends": "prettier",
+  "extends": [
+      "prettier",
+      "prettier/flowtype",
+      "prettier/react",
+      "prettier/standard"
+    //   ,
+    //   "airbnb"
+    ],
   "env": {
     "browser": true,
     "es6": true,
@@ -15,8 +21,9 @@
       "defaultParams": true
     }
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "react", "jsx-a11y", "import"],
   "rules": {
+    // "indent": [2, 4, {"SwitchCase": 4}],
     // A jsx extension is not required for files containing jsx
     "react/jsx-filename-extension": 0,
     // This rule struggles with flow and class properties
@@ -27,5 +34,6 @@
     "linebreak-style": 0,
     "jsx-a11y/href-no-hash": 0,
     "prettier/prettier": "error"
+    // "prettier/prettier": ["error", "fb"],
   }
 }

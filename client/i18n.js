@@ -31,7 +31,7 @@ const options = {
         }
     },
 
-    parse: function(data) {
+    parse(data) {
         return data
     },
     crossDomain: false,

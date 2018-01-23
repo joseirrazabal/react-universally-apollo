@@ -1,5 +1,3 @@
-// @flow weak
-
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withApollo } from 'react-apollo'
@@ -38,9 +36,8 @@ class PrivateRoute extends Component {
 
         if (this._isLoggedIn()) {
             return this.renderLoggedIn()
-        } else {
-            return this.renderLoggedOut()
         }
+        return this.renderLoggedOut()
     }
 
     renderLoggedIn() {

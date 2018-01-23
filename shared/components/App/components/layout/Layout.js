@@ -17,7 +17,7 @@ const styles = theme => ({
 })
 
 function Layout(props) {
-    let { children, classes } = props
+    const { children, classes } = props
 
     const muiTheme = createMuiTheme({
         palette: {
@@ -33,7 +33,7 @@ function Layout(props) {
             <div className="body">
                 <MenuAppBar component={children} />
 
-                <BackToTop minScrollY={40} scrollTo={'appContainer'} />
+                <BackToTop minScrollY={40} scrollTo="appContainer" />
             </div>
         </MuiThemeProvider>
     )

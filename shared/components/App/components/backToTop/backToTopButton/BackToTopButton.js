@@ -38,7 +38,7 @@ const BackToTopButton = ({ onClick, position, children, motionStyle }) => {
         >
             {!children && (
                 <div style={{ marginRight: '10px' }}>
-                    <UpIcon color={'#F1F1F1'} />
+                    <UpIcon color="#F1F1F1" />
                 </div>
             )}
             {!!children && children}

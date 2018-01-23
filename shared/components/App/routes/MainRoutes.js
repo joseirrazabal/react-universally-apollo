@@ -55,18 +55,17 @@ const AppRoute = ({ path, component: Component, isPrivate }) => {
                 <PrivateRoute path={path} component={Component} />
             </Layout>
         )
-    } else {
-        return (
-            <Route
-                path={path}
-                render={props => (
-                    <Layout>
-                        <Component {...props} />
-                    </Layout>
-                )}
-            />
-        )
     }
+    return (
+        <Route
+            path={path}
+            render={props => (
+                <Layout>
+                    <Component {...props} />
+                </Layout>
+            )}
+        />
+    )
 }
 
 export const MainRoutes = () => (
@@ -74,7 +73,7 @@ export const MainRoutes = () => (
         <Redirect exact from="/" to="/dashboard" />
 
         {routes.map(({ path, useLayout, Component, isPrivate }) => {
-            let RouteCustom = useLayout ? AppRoute : Route
+            const RouteCustom = useLayout ? AppRoute : Route
             return (
                 <RouteCustom
                     key={path}

@@ -1,5 +1,3 @@
-// @flow weak
-
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect, withRouter } from 'react-router-dom'

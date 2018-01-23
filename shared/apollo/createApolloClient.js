@@ -90,34 +90,33 @@ function createApolloClient() {
             cache: new InMemoryCache()
             // ...options,
         })
-    } else {
-        const queryOrMutationLink = (config = {}) =>
-            new ApolloLink((operation, forward) => {
-                operation.setContext({
-                    credentials: 'same-origin',
-                    headers: {
-                        authorization: localStorage.getItem('token') || null
-                    }
-                })
-                return forward(operation)
-            }).concat(
-                new HttpLink({
-                    ...config
-                })
-            )
-
-        return new ApolloClient({
-            ssrMode: true,
-            errorLink,
-            link: ApolloLink.from([
-                queryOrMutationLink({
-                    fetch,
-                    uri: `/graphql`
-                })
-            ]),
-            cache: new InMemoryCache()
-        })
     }
+    const queryOrMutationLink = (config = {}) =>
+        new ApolloLink((operation, forward) => {
+            operation.setContext({
+                credentials: 'same-origin',
+                headers: {
+                    authorization: localStorage.getItem('token') || null
+                }
+            })
+            return forward(operation)
+        }).concat(
+            new HttpLink({
+                ...config
+            })
+        )
+
+    return new ApolloClient({
+        ssrMode: true,
+        errorLink,
+        link: ApolloLink.from([
+            queryOrMutationLink({
+                fetch,
+                uri: `/graphql`
+            })
+        ]),
+        cache: new InMemoryCache()
+    })
 }
 
 export default createApolloClient

@@ -10,26 +10,23 @@ const renderField = ({
     placeholder,
     IconGroupAddon,
     meta: { touched, error, warning }
-}) => {
-    return (
-        <FormControl fullWidth error aria-describedby="name-error-text">
-            {false && <InputLabel htmlFor="name-error">{label}</InputLabel>}
-            <TextField
-                id="with-placeholder"
-                label={label}
-                placeholder={placeholder}
-                margin="normal"
-                {...input}
-            />
-            {touched &&
-                (error && (
-                    <FormHelperText id="name-error-text">
-                        {error}
-                    </FormHelperText>
-                ))}
-        </FormControl>
-    )
-    /*
+}) => (
+    <FormControl fullWidth error aria-describedby="name-error-text">
+        {false && <InputLabel htmlFor="name-error">{label}</InputLabel>}
+        <TextField
+            id="with-placeholder"
+            label={label}
+            placeholder={placeholder}
+            margin="normal"
+            {...input}
+        />
+        {touched &&
+            (error && (
+                <FormHelperText id="name-error-text">{error}</FormHelperText>
+            ))}
+    </FormControl>
+)
+/*
     return (
         <InputGroup className="mb-3">
             {label && <label>{label}</label>}
@@ -47,6 +44,5 @@ const renderField = ({
         </InputGroup>
     )
     */
-}
 
 export default renderField

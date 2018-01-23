@@ -1,5 +1,3 @@
-// @flow weak
-
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form/immutable'
@@ -54,6 +52,8 @@ class Protected extends PureComponent {
 
     handleSubmit = async values => {
         const { mutateItem, history, reset } = this.props
+
+        let prueba: string = 123
 
         try {
             await mutateItem({ variables: values })
