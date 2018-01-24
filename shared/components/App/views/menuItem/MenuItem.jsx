@@ -11,13 +11,7 @@ import { MenuItem } from 'material-ui/Menu'
 import Radio, { RadioButton } from 'material-ui/Radio'
 import { FormControlLabel } from 'material-ui/Form'
 
-import {
-    Checkbox,
-    RadioGroup,
-    Select,
-    TextField,
-    Switch
-} from 'redux-form-material-ui'
+import { Checkbox, RadioGroup, Select, TextField, Switch } from 'redux-form-material-ui'
 
 import { renderField, ErrorAlert } from '../../components'
 
@@ -40,7 +34,7 @@ type State = {
     viewEntersAnim: any
 }
 
-class Protected extends PureComponent<Props, State> {
+class FormMenuItem extends PureComponent<Props, State> {
     static propTypes = {
         // react-router 4:
         history: PropTypes.object.isRequired,
@@ -51,14 +45,9 @@ class Protected extends PureComponent<Props, State> {
         mutateItem: PropTypes.func.isRequired
     }
 
-    // state = {
-    //     viewEntersAnim: true
-    // }
-
     constructor(props) {
         super(props)
-        // this.state = { error: false }
-        this.setState({ error: false, viewEntersAnim: true })
+        this.state = { error: false, viewEntersAnim: true }
     }
 
     componentDidMount() {
@@ -85,7 +74,7 @@ class Protected extends PureComponent<Props, State> {
         }
     }
 
-    closeError = event => {
+    closeError: any = event => {
         event.preventDefault()
         this.setState({
             error: false
@@ -93,15 +82,7 @@ class Protected extends PureComponent<Props, State> {
     }
 
     render() {
-        const {
-            handleSubmit,
-            pristine,
-            reset,
-            submitting,
-            mutationLoading,
-            error,
-            t
-        } = this.props
+        const { handleSubmit, pristine, reset, submitting, mutationLoading, error, t } = this.props
         const { viewEntersAnim } = this.state
 
         return (
@@ -110,11 +91,7 @@ class Protected extends PureComponent<Props, State> {
                     <ErrorAlert
                         showAlert={!!this.state && this.state.error}
                         errorTitle={'Error'}
-                        errorMessage={
-                            this.state && this.state.error
-                                ? this.state.error.message
-                                : ''
-                        }
+                        errorMessage={this.state && this.state.error ? this.state.error.message : ''}
                         onClose={this.closeError}
                     />
                     <div>
@@ -154,33 +131,6 @@ class Protected extends PureComponent<Props, State> {
                             placeholder={t('orden')}
                         />
                     </div>
-                    <Field
-                        name="plan"
-                        component={Select}
-                        placeholder="Select a plan"
-                    >
-                        <MenuItem value="monthly">Monthly</MenuItem>
-                        <MenuItem value="yearly">Yearly</MenuItem>
-                        <MenuItem value="lifetime">Lifetime</MenuItem>
-                    </Field>
-                    <FormControlLabel
-                        control={
-                            <Field name="agreeToTerms" component={Checkbox} />
-                        }
-                        label="Agree to terms?"
-                    />
-                    <FormControlLabel
-                        control={
-                            <Field name="receiveEmails" component={Switch} />
-                        }
-                        label="Please spam me!"
-                    />
-                    <Field name="bestFramework" component={RadioGroup}>
-                        <Radio value="react" label="React" />
-                        <Radio value="angular" label="Angular" />
-                        <Radio value="ember" label="Ember" />
-                    </Field>
-
                     <Button
                         type="submit"
                         disabled={pristine || submitting || mutationLoading}
@@ -188,14 +138,10 @@ class Protected extends PureComponent<Props, State> {
                         color="primary"
                     >
                         <Save />
-                        {t('prueba')}
+                        {t([`form.submit`, 'Parrafo sin tranduccion'])}
                     </Button>
-                    <Button
-                        disabled={pristine || submitting}
-                        raised
-                        onClick={reset}
-                    >
-                        {t('asdf')}
+                    <Button disabled={pristine || submitting} raised onClick={reset}>
+                        {t('Cancelar')}
                     </Button>
                 </form>
             </div>
@@ -203,8 +149,8 @@ class Protected extends PureComponent<Props, State> {
     }
 }
 
-const validate = values => {
-    const errors = {}
+const validate: any = values => {
+    const errors: any = {}
 
     if (!values.name) {
         errors.name = 'Required'
@@ -213,9 +159,9 @@ const validate = values => {
     return errors
 }
 
-const Pretected = reduxForm({
+FormMenuItem = reduxForm({
     form: 'example',
     validate
-})(Protected)
+})(FormMenuItem)
 
-export default translate()(Pretected)
+export default translate('menuItem')(FormMenuItem)

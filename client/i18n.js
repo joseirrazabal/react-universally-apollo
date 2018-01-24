@@ -15,11 +15,11 @@ const options = {
     ns: ['translations'],
     defaultNS: 'translations',
 
-    keySeparator: false,
+    // keySeparator: false,
     debug: false,
 
     cache: {
-        enabled: false
+        enabled: true
     },
 
     interpolation: {

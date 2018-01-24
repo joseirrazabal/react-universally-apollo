@@ -8,4 +8,4 @@ export { default as PageNotFound } from './page/Page'
 export { default as Login } from './login/Login'
 export { default as Register } from './register/Register'
 // protected views:
-export { default as Protected } from './protected/Protected'
+export { default as FormMenuItem } from './menuItem/MenuItem'

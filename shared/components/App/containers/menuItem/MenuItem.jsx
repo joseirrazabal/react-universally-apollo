@@ -6,23 +6,11 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import * as viewsActions from '../../../../reducers/modules/views'
-import { Protected } from '../../views'
+import { FormMenuItem } from '../../views'
 
 const itemMenuInMutation = gql`
-    mutation menuItem(
-        $name: String!
-        $title: Boolean
-        $url: String
-        $order: Int
-        $icon: String
-    ) {
-        setMenuItem(
-            name: $name
-            title: $title
-            url: $url
-            order: $order
-            icon: $icon
-        ) {
+    mutation menuItem($name: String!, $title: Boolean, $url: String, $order: Int, $icon: String) {
+        setMenuItem(name: $name, title: $title, url: $url, order: $order, icon: $icon) {
             id
             name
             title
@@ -52,7 +40,7 @@ const itemMenuWithMutation = graphql(itemMenuInMutation, {
                 })
         }
     })
-})(Protected)
+})(FormMenuItem)
 
 const mapStateToProps = state => {
     return {
@@ -70,6 +58,4 @@ const mapDispatchToProps = dispatch => {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    itemMenuWithMutation
-)
+export default connect(mapStateToProps, mapDispatchToProps)(itemMenuWithMutation)
