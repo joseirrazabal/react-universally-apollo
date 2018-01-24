@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as viewsActions from '../../../../reducers/modules/views'
 import * as userAuthActions from '../../../../reducers/modules/userAuth'
-import { Login } from '../../views'
+import { Login } from '../../components'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 

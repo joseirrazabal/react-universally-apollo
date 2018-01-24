@@ -3,9 +3,7 @@
 import React from 'react'
 import { Route, Switch, Redirect } from 'react-router-dom'
 
-import { PageNotFound } from '../views'
-
-import { Layout } from '../components'
+import { PageNotFound, Layout } from '../components'
 
 import { PrivateRoute, Login, Logout, Home, MenuItem } from '../containers'
 

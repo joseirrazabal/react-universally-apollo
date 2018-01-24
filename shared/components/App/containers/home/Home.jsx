@@ -3,7 +3,7 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as viewsActions from '../../../../reducers/modules/views'
-import { Home } from '../../views'
+import { Home } from '../../components'
 import gql from 'graphql-tag'
 import { graphql } from 'react-apollo'
 

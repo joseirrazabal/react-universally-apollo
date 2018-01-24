@@ -6,7 +6,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import * as viewsActions from '../../../../reducers/modules/views'
-import { FormMenuItem } from '../../views'
+import { FormMenuItem } from '../../components'
 
 const itemMenuInMutation = gql`
     mutation menuItem($name: String!, $title: Boolean, $url: String, $order: Int, $icon: String) {
