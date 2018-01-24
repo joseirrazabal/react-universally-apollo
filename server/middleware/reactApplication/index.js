@@ -1,17 +1,14 @@
 import React from 'react'
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import StaticRouter from 'react-router-dom/StaticRouter'
-import {
-    AsyncComponentProvider,
-    createAsyncContext
-} from 'react-async-component'
+import { AsyncComponentProvider, createAsyncContext } from 'react-async-component'
 import asyncBootstrapper from 'react-async-bootstrapper'
 import Helmet from 'react-helmet'
 import { ApolloProvider, getDataFromTree } from 'react-apollo'
 import configureStore from '../../../shared/redux/configureStore'
 import { createApolloClient } from '../../../shared/apollo'
 import config from '../../../config'
-import App from '../../../shared/components/App'
+import App from '../../../shared/App'
 import ServerHTML from './ServerHTML'
 
 import { JobProvider, createJobContext } from 'react-jobs'

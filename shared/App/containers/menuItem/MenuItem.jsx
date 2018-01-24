@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux'
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import * as viewsActions from '../../../../reducers/modules/views'
+import * as viewsActions from '../../../reducers/modules/views'
 import { FormMenuItem } from '../../components'
 
 const itemMenuInMutation = gql`

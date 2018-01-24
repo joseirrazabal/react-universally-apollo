@@ -15,7 +15,7 @@ import { I18nextProvider } from 'react-i18next'
 import './polyfills'
 
 import ReactHotLoader from './components/ReactHotLoader'
-import App from '../shared/components/App'
+import App from '../shared/App'
 import i18n from './i18n' // initialized i18next instance
 
 // Get the DOM Element that will host our React application.
@@ -41,8 +41,7 @@ const supportsHistory = 'pushState' in window.history
 
 // Get any rehydrateState for the async components.
 // eslint-disable-next-line no-underscore-dangle
-const asyncComponentsRehydrateState =
-    window.__ASYNC_COMPONENTS_REHYDRATE_STATE__
+const asyncComponentsRehydrateState = window.__ASYNC_COMPONENTS_REHYDRATE_STATE__
 
 /**
  * Renders the given React Application component.
@@ -52,9 +51,7 @@ function renderApp(TheApp) {
     // component app with a browser based version of react router.
     const app = (
         <ReactHotLoader>
-            <AsyncComponentProvider
-                rehydrateState={asyncComponentsRehydrateState}
-            >
+            <AsyncComponentProvider rehydrateState={asyncComponentsRehydrateState}>
                 <ApolloProvider client={apolloClient}>
                     <Provider store={store}>
                         <BrowserRouter forceRefresh={!supportsHistory}>
@@ -92,7 +89,7 @@ if (process.env.BUILD_FLAG_IS_DEV === 'true' && module.hot) {
     // Accept changes to this file for hot reloading.
     module.hot.accept('./index.js')
     // Any changes to our App will cause a hotload re-render.
-    module.hot.accept('../shared/components/App', () => {
-        renderApp(require('../shared/components/App').default)
+    module.hot.accept('../shared/App', () => {
+        renderApp(require('../shared/App').default)
     })
 }

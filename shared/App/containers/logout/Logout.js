@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Route, Redirect, withRouter } from 'react-router-dom'
-import auth from '../../../../services/auth'
+import auth from '../../../services/auth'
 
 class LogoutRoute extends PureComponent {
     static propTypes = {
