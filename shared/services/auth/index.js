@@ -6,10 +6,7 @@ import moment from 'moment'
 const TOKEN_KEY = 'token'
 const USER_INFO = 'userInfo'
 
-const APP_PERSIST_STORES_TYPES: Array<STORES_TYPES> = [
-    'localStorage',
-    'sessionStorage'
-]
+const APP_PERSIST_STORES_TYPES: Array<STORES_TYPES> = ['localStorage', 'sessionStorage']
 
 const parse = JSON.parse
 const stringify = JSON.stringify
@@ -32,10 +29,7 @@ export const auth = {
      * @param {any} [tokenKey=TOKEN_KEY]  optionnal parameter to specify a token key
      * @returns {string} token value
      */
-    getToken(
-        fromStorage: Storage = APP_PERSIST_STORES_TYPES[0],
-        tokenKey: TokenKey = TOKEN_KEY
-    ): ?string {
+    getToken(fromStorage: Storage = APP_PERSIST_STORES_TYPES[0], tokenKey: TokenKey = TOKEN_KEY): ?string {
         // localStorage:
         if (fromStorage === APP_PERSIST_STORES_TYPES[0]) {
             return (localStorage && localStorage.getItem(tokenKey)) || null
@@ -127,10 +121,7 @@ export const auth = {
      * @param {any} [tokenKey='token'] token key
      * @returns {bool} success/failure flag
      */
-    clearToken(
-        storage: Storage = APP_PERSIST_STORES_TYPES[0],
-        tokenKey: TokenKey = TOKEN_KEY
-    ): boolean {
+    clearToken(storage: Storage = APP_PERSIST_STORES_TYPES[0], tokenKey: TokenKey = TOKEN_KEY): boolean {
         // localStorage:
         if (localStorage && localStorage[tokenKey]) {
             localStorage.removeItem(tokenKey)
@@ -194,19 +185,11 @@ export const auth = {
     ): ?string {
         // localStorage:
         if (fromStorage === APP_PERSIST_STORES_TYPES[0]) {
-            return (
-                (localStorage &&
-                    parse(localStorage.getItem(userInfoKey) || '')) ||
-                null
-            )
+            return (localStorage && parse(localStorage.getItem(userInfoKey) || '')) || null
         }
         // sessionStorage:
         if (fromStorage === APP_PERSIST_STORES_TYPES[1]) {
-            return (
-                (sessionStorage &&
-                    parse(sessionStorage.getItem(userInfoKey) || '')) ||
-                null
-            )
+            return (sessionStorage && parse(sessionStorage.getItem(userInfoKey) || '')) || null
         }
         // default:
         return null

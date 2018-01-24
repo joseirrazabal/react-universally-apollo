@@ -18,13 +18,7 @@ class Alert extends PureComponent {
     }
 
     render() {
-        const {
-            type,
-            showAlert,
-            errorTitle,
-            errorMessage,
-            onClose
-        } = this.props
+        const { type, showAlert, errorTitle, errorMessage, onClose } = this.props
 
         return (
             <Motion
@@ -45,17 +39,10 @@ class Alert extends PureComponent {
                             transform: `scale(${interpolatedScale})`
                         }}
                     >
-                        <button
-                            type="button"
-                            className="close"
-                            onClick={onClose}
-                        >
+                        <button type="button" className="close" onClick={onClose}>
                             &times;
                         </button>
-                        {errorTitle &&
-                            errorTitle.length > 0 && (
-                                <strong>{errorTitle}</strong>
-                            )}
+                        {errorTitle && errorTitle.length > 0 && <strong>{errorTitle}</strong>}
                         {<p>{errorMessage}</p>}
                     </div>
                 )}

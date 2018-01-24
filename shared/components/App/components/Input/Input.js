@@ -13,17 +13,8 @@ const renderField = ({
 }) => (
     <FormControl fullWidth error aria-describedby="name-error-text">
         {false && <InputLabel htmlFor="name-error">{label}</InputLabel>}
-        <TextField
-            id="with-placeholder"
-            label={label}
-            placeholder={placeholder}
-            margin="normal"
-            {...input}
-        />
-        {touched &&
-            (error && (
-                <FormHelperText id="name-error-text">{error}</FormHelperText>
-            ))}
+        <TextField id="with-placeholder" label={label} placeholder={placeholder} margin="normal" {...input} />
+        {touched && (error && <FormHelperText id="name-error-text">{error}</FormHelperText>)}
     </FormControl>
 )
 /*

@@ -159,8 +159,7 @@ class PersistentDrawer extends React.Component {
         })
     }
 
-    handleUserMenuToggle = () =>
-        this.setState({ openUserMenu: !this.state.openUserMenu })
+    handleUserMenuToggle = () => this.setState({ openUserMenu: !this.state.openUserMenu })
 
     render() {
         const { classes, theme, component } = this.props
@@ -190,14 +189,8 @@ class PersistentDrawer extends React.Component {
                     open={openUserMenu}
                     onClose={this.handleUserMenuToggle}
                 >
-                    <MenuItem onClick={this.handleUserMenuToggle}>
-                        Profile
-                    </MenuItem>
-                    <MenuItem
-                        onClick={this.handleUserMenuToggle}
-                        to="/logout"
-                        component={Link}
-                    >
+                    <MenuItem onClick={this.handleUserMenuToggle}>Profile</MenuItem>
+                    <MenuItem onClick={this.handleUserMenuToggle} to="/logout" component={Link}>
                         Logout
                     </MenuItem>
                 </Menu>
@@ -216,11 +209,7 @@ class PersistentDrawer extends React.Component {
                 <div className={classes.drawerInner}>
                     <div className={classes.drawerHeader}>
                         <IconButton onClick={this.handleDrawerClose}>
-                            {theme.direction === 'rtl' ? (
-                                <ChevronRightIcon />
-                            ) : (
-                                <ChevronLeftIcon />
-                            )}
+                            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
                         </IconButton>
                     </div>
                     <Divider />
@@ -304,10 +293,7 @@ class PersistentDrawer extends React.Component {
                                     <IconButton
                                         aria-label="open drawer"
                                         onClick={this.handleDrawerOpen}
-                                        className={classNames(
-                                            classes.menuButton,
-                                            open && classes.hide
-                                        )}
+                                        className={classNames(classes.menuButton, open && classes.hide)}
                                     >
                                         <MenuIcon />
                                     </IconButton>

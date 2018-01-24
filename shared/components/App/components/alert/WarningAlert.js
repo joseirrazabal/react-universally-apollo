@@ -31,17 +31,10 @@ class WarningAlert extends PureComponent {
                             transform: `scale(${interpolatedScale})`
                         }}
                     >
-                        <button
-                            type="button"
-                            className="close"
-                            onClick={onClose}
-                        >
+                        <button type="button" className="close" onClick={onClose}>
                             &times;
                         </button>
-                        {warningTitle &&
-                            warningTitle.length > 0 && (
-                                <strong>{warningTitle}</strong>
-                            )}
+                        {warningTitle && warningTitle.length > 0 && <strong>{warningTitle}</strong>}
                         {<p>{warningMessage}</p>}
                     </div>
                 )}

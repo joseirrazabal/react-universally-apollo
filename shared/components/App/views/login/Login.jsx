@@ -66,14 +66,7 @@ class Login extends PureComponent {
     render() {
         const { viewEntersAnim } = this.state
 
-        const {
-            mutationLoading,
-            handleSubmit,
-            pristine,
-            reset,
-            submitting,
-            error
-        } = this.props
+        const { mutationLoading, handleSubmit, pristine, reset, submitting, error } = this.props
 
         return (
             <div className={cx({ 'view-enter': viewEntersAnim })}>
@@ -86,9 +79,7 @@ class Login extends PureComponent {
                                         <Card className="p-4">
                                             <CardBody className="card-body">
                                                 <h1>Login</h1>
-                                                <p className="text-muted">
-                                                    Sign In to your account
-                                                </p>
+                                                <p className="text-muted">Sign In to your account</p>
                                                 <Field
                                                     name="email"
                                                     type="text"
@@ -108,18 +99,13 @@ class Login extends PureComponent {
                                                     IconGroupAddon="icon-lock"
                                                 />
                                                 <Row>
-                                                    <Col
-                                                        xs="12"
-                                                        className="text-right"
-                                                    >
+                                                    <Col xs="12" className="text-right">
                                                         <Button
                                                             type="submit"
                                                             color="primary"
                                                             className="px-4"
                                                             disabled={
-                                                                pristine ||
-                                                                submitting ||
-                                                                mutationLoading
+                                                                pristine || submitting || mutationLoading
                                                             }
                                                         >
                                                             Login

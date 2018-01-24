@@ -48,9 +48,7 @@ class PrivateRoute extends Component {
 
     renderLoggedOut() {
         const { location } = this.props
-        return (
-            <Redirect to={{ pathname: '/login', state: { from: location } }} />
-        )
+        return <Redirect to={{ pathname: '/login', state: { from: location } }} />
     }
 }
 

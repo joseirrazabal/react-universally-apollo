@@ -8,21 +8,13 @@ import PropTypes from 'prop-types'
  * The is the HTML shell for our React Application.
  */
 function HTML(props) {
-    const {
-        htmlAttributes,
-        headerElements,
-        bodyElements,
-        appBodyString
-    } = props
+    const { htmlAttributes, headerElements, bodyElements, appBodyString } = props
 
     return (
         <html {...htmlAttributes}>
             <head>{headerElements}</head>
             <body>
-                <div
-                    id="app"
-                    dangerouslySetInnerHTML={{ __html: appBodyString }}
-                />
+                <div id="app" dangerouslySetInnerHTML={{ __html: appBodyString }} />
                 {bodyElements}
             </body>
         </html>

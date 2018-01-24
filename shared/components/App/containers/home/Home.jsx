@@ -40,10 +40,7 @@ const HomeWithQuery = graphql(CurrentUser, {
 
     name: 'getCurrentUser',
 
-    props: ({
-        ownProps,
-        getCurrentUser: { loading, getUser, getRole, refetch }
-    }) => {
+    props: ({ ownProps, getCurrentUser: { loading, getUser, getRole, refetch } }) => {
         // // TODO: find a better solution to dispatch redux action on query result to set 'state.userAuth.isAuthenticated'
         // setTimeout(
         //   () => ownProps.checkUserAuth(), 0

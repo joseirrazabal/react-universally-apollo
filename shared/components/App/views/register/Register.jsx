@@ -57,10 +57,7 @@ class Register extends PureComponent {
                             <fieldset>
                                 <legend>Register</legend>
                                 <div className="form-group">
-                                    <label
-                                        htmlFor="inputEmail"
-                                        className="col-lg-2 control-label"
-                                    >
+                                    <label htmlFor="inputEmail" className="col-lg-2 control-label">
                                         Email
                                     </label>
                                     <div className="col-lg-10">
@@ -75,10 +72,7 @@ class Register extends PureComponent {
                                     </div>
                                 </div>
                                 <div className="form-group">
-                                    <label
-                                        htmlFor="inputPassword"
-                                        className="col-lg-2 control-label"
-                                    >
+                                    <label htmlFor="inputPassword" className="col-lg-2 control-label">
                                         Password
                                     </label>
                                     <div className="col-lg-10">
@@ -88,19 +82,14 @@ class Register extends PureComponent {
                                             id="inputPassword"
                                             placeholder="Password"
                                             value={password}
-                                            onChange={
-                                                this.handlesOnPasswordChange
-                                            }
+                                            onChange={this.handlesOnPasswordChange}
                                         />
                                     </div>
                                 </div>
 
                                 <div className="form-group">
                                     <div className="col-lg-10 col-lg-offset-2">
-                                        <Link
-                                            className="btn btn-default"
-                                            to={'/'}
-                                        >
+                                        <Link className="btn btn-default" to={'/'}>
                                             Cancel
                                         </Link>
                                         <button

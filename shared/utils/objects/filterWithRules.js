@@ -4,9 +4,7 @@ function filterWithRulesLoop(rules, obj, basePropPath = '') {
 
         if (typeof rules[key] === 'object') {
             if (typeof obj[key] !== 'object') {
-                throw new Error(
-                    `Expected prop at path "${propPath}" to be an object`
-                )
+                throw new Error(`Expected prop at path "${propPath}" to be an object`)
             }
             acc[key] = filterWithRulesLoop(rules[key], obj[key], propPath) // eslint-disable-line no-param-reassign,max-len
         } else if (rules[key]) {

@@ -47,9 +47,7 @@ function createApolloClient() {
     const errorLink = onError(({ graphQLErrors, networkError }) => {
         if (graphQLErrors)
             graphQLErrors.map(({ message, location, path }) =>
-                console.log(
-                    `[GraphQL error]: Message: ${message}, Location: ${location}, Path: ${path}`
-                )
+                console.log(`[GraphQL error]: Message: ${message}, Location: ${location}, Path: ${path}`)
             )
         if (networkError) console.log(`[Network error]: ${networkError}`)
     })
@@ -68,10 +66,7 @@ function createApolloClient() {
         const link = split(
             ({ query }) => {
                 const { kind, operation } = getMainDefinition(query)
-                return (
-                    kind === 'OperationDefinition' &&
-                    operation === 'subscription'
-                )
+                return kind === 'OperationDefinition' && operation === 'subscription'
             },
             wsLink,
             httpLinkFinal

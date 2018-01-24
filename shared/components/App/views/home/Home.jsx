@@ -37,10 +37,7 @@ class Home extends PureComponent {
         const { viewEntersAnim } = this.state
 
         return (
-            <div
-                key="homeView"
-                className={cx({ 'view-enter': viewEntersAnim })}
-            >
+            <div key="homeView" className={cx({ 'view-enter': viewEntersAnim })}>
                 <Helmet>
                     <title>About</title>
                 </Helmet>

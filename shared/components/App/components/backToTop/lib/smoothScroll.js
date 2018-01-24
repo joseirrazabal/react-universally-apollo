@@ -34,9 +34,7 @@ export const smoothScroll = {
         const delta = nodeTop - offset
         const bottomScrollableY = height - windowHeight
         const targetY =
-            bottomScrollableY < delta
-                ? bottomScrollableY - (height - nodeTop - nodeHeight + offset)
-                : delta
+            bottomScrollableY < delta ? bottomScrollableY - (height - nodeTop - nodeHeight + offset) : delta
 
         const startTime = Date.now()
         percentage = 0
@@ -62,13 +60,7 @@ export const smoothScroll = {
                     callback()
                 }
             } else {
-                yScroll = settings.easing.outQuint(
-                    0,
-                    elapsed,
-                    offset,
-                    targetY,
-                    settings.duration
-                )
+                yScroll = settings.easing.outQuint(0, elapsed, offset, targetY, settings.duration)
                 window.scrollTo(0, yScroll)
                 this.timer = setTimeout(step, 10)
             }

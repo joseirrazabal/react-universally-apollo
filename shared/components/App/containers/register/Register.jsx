@@ -75,13 +75,10 @@ const mapDispatchToProps = dispatch => {
             resetError: userAuthActions.resetLogError,
 
             setMutationLoading: userAuthActions.setLoadingStateForUserRegister,
-            unsetMutationLoading:
-                userAuthActions.unsetLoadingStateForUserRegister
+            unsetMutationLoading: userAuthActions.unsetLoadingStateForUserRegister
         },
         dispatch
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-    RegisterWithCreatUserMutation
-)
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterWithCreatUserMutation)

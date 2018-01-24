@@ -74,14 +74,7 @@ export const MainRoutes = () => (
 
         {routes.map(({ path, useLayout, Component, isPrivate }) => {
             const RouteCustom = useLayout ? AppRoute : Route
-            return (
-                <RouteCustom
-                    key={path}
-                    path={path}
-                    component={Component}
-                    isPrivate={isPrivate}
-                />
-            )
+            return <RouteCustom key={path} path={path} component={Component} isPrivate={isPrivate} />
         })}
     </Switch>
 )

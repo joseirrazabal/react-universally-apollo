@@ -37,10 +37,7 @@ class BackToTop extends Component {
         return (
             <Motion
                 style={{
-                    interpolatedX: spring(
-                        showBackButton ? 0 : 120,
-                        presets.stiff
-                    )
+                    interpolatedX: spring(showBackButton ? 0 : 120, presets.stiff)
                 }}
             >
                 {({ interpolatedX }) => (
