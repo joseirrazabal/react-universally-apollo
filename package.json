@@ -16,7 +16,7 @@
         "deploy": "babel-node internal/scripts/deploy",
         "develop":
             "cross-env DEPLOYMENT=development babel-node internal/development",
-        "lint": "eslint shared",
+        "lint": "eslint --ext .jsx --ext .js shared",
         "precommit": "lint-staged && npm run lint",
         "preinstall": "node internal/scripts/preinstall",
         "prepush": "jest",
@@ -145,6 +145,8 @@
         "eslint": "4.16.0",
         "eslint-config-airbnb": "16.1.0",
         "eslint-config-prettier": "^2.9.0",
+        "eslint-plugin-flowtype": "^2.41.1",
+        "eslint-plugin-flowtype-errors": "^3.3.7",
         "eslint-plugin-import": "2.8.0",
         "eslint-plugin-jsx-a11y": "6.0.3",
         "eslint-plugin-prettier": "^2.4.0",

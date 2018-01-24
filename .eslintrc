@@ -5,7 +5,6 @@
       "prettier/flowtype",
       "prettier/react",
       "prettier/standard"
-    //   ,
     //   "airbnb"
     ],
   "env": {
@@ -21,8 +20,15 @@
       "defaultParams": true
     }
   },
-  "plugins": ["prettier", "react", "jsx-a11y", "import"],
+//   "plugins": ["prettier", "react", "jsx-a11y", "import"],
+  "plugins": ["flowtype", "flowtype-errors", "prettier", "react", "jsx-a11y", "import"],
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": true
+    }
+  },
   "rules": {
+    "flowtype-errors/show-errors": 2,
     // "indent": [2, 4, {"SwitchCase": 4}],
     // A jsx extension is not required for files containing jsx
     "react/jsx-filename-extension": 0,
@@ -34,6 +40,5 @@
     "linebreak-style": 0,
     "jsx-a11y/href-no-hash": 0,
     "prettier/prettier": "error"
-    // "prettier/prettier": ["error", "fb"],
   }
 }

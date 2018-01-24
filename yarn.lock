@@ -2741,6 +2741,19 @@ eslint-module-utils@^2.1.1:
     debug "^2.6.8"
     pkg-dir "^1.0.0"
 
+eslint-plugin-flowtype-errors@^3.3.7:
+  version "3.3.7"
+  resolved "http://10.0.41.30:8080/eslint-plugin-flowtype-errors/-/eslint-plugin-flowtype-errors-3.3.7.tgz#da8fbfde0d3a887bc4513fbb2e8dd9e227433953"
+  dependencies:
+    babel-runtime "^6.26.0"
+    slash "^1.0.0"
+
+eslint-plugin-flowtype@^2.41.1:
+  version "2.41.1"
+  resolved "http://10.0.41.30:8080/eslint-plugin-flowtype/-/eslint-plugin-flowtype-2.41.1.tgz#0996e1ea1d501dfc945802453a304ae9e8098b78"
+  dependencies:
+    lodash "^4.15.0"
+
 eslint-plugin-import@2.8.0:
   version "2.8.0"
   resolved "http://10.0.41.30:8080/eslint-plugin-import/-/eslint-plugin-import-2.8.0.tgz#fa1b6ef31fcb3c501c09859c1b86f1fc5b986894"

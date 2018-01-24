@@ -1,3 +1,4 @@
+// @flow
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Field, reduxForm } from 'redux-form/immutable'
@@ -20,7 +21,26 @@ import {
 
 import { renderField, ErrorAlert } from '../../components'
 
-class Protected extends PureComponent {
+type Props = {
+    history: any,
+    enterProtected: any,
+    leaveProtected: any,
+    mutateItem: any,
+    handleSubmit: any,
+    pristine: any,
+    reset: any,
+    submitting: any,
+    mutationLoading: any,
+    error: any,
+    t: any
+}
+
+type State = {
+    error: any,
+    viewEntersAnim: any
+}
+
+class Protected extends PureComponent<Props, State> {
     static propTypes = {
         // react-router 4:
         history: PropTypes.object.isRequired,
@@ -31,13 +51,14 @@ class Protected extends PureComponent {
         mutateItem: PropTypes.func.isRequired
     }
 
-    state = {
-        viewEntersAnim: true
-    }
+    // state = {
+    //     viewEntersAnim: true
+    // }
 
     constructor(props) {
         super(props)
-        this.state = { error: false }
+        // this.state = { error: false }
+        this.setState({ error: false, viewEntersAnim: true })
     }
 
     componentDidMount() {
@@ -52,8 +73,6 @@ class Protected extends PureComponent {
 
     handleSubmit = async values => {
         const { mutateItem, history, reset } = this.props
-
-        let prueba: string = 123
 
         try {
             await mutateItem({ variables: values })

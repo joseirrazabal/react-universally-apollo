@@ -1,3 +1,4 @@
+// @flow
 import type { Storage, TokenKey, UserInfoKey, STORES_TYPES } from './type'
 import decode from 'jwt-decode'
 import moment from 'moment'
@@ -194,7 +195,8 @@ export const auth = {
         // localStorage:
         if (fromStorage === APP_PERSIST_STORES_TYPES[0]) {
             return (
-                (localStorage && parse(localStorage.getItem(userInfoKey))) ||
+                (localStorage &&
+                    parse(localStorage.getItem(userInfoKey) || '')) ||
                 null
             )
         }
@@ -202,7 +204,7 @@ export const auth = {
         if (fromStorage === APP_PERSIST_STORES_TYPES[1]) {
             return (
                 (sessionStorage &&
-                    parse(sessionStorage.getItem(userInfoKey))) ||
+                    parse(sessionStorage.getItem(userInfoKey) || '')) ||
                 null
             )
         }
